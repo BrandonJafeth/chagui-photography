@@ -6,7 +6,7 @@ import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://isaiasfotografia.com',  // TODO: actualizar con dominio real
+  site: 'https://photographicchagui.com',
   output: 'static',
   trailingSlash: 'always',
 

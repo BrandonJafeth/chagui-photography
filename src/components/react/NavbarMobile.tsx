@@ -40,7 +40,7 @@ export default function NavbarMobile({ navLinks, currentPath }: NavbarMobileProp
           onClick={closeMenu}
           className="text-[0.6rem] uppercase tracking-[0.35em] text-white/55 hover:text-white/75 transition-colors duration-200"
         >
-          Photographic Images
+          Photographic Chagui
         </a>
         <button
           onClick={closeMenu}

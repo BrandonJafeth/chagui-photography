@@ -1,6 +1,6 @@
 {
   "brand": {
-    "name": "PHOTOGRAPHIC IMAGES",
+    "name": "PHOTOGRAPHIC CHAGUI",
     "description": "Fotografía profesional con mirada propia. Bodas, retratos, eventos y sacramentos en Costa Rica.",
     "rating": {
       "score": 5,
@@ -37,7 +37,7 @@
     { "name": "Email",    "href": "mailto:isaiasdg14@hotmail.com",       "icon": "email"     }
   ],
   "legal": {
-    "companyName": "Photographic Images",
+    "companyName": "Photographic Chagui",
     "country": "Costa Rica",
     "links": []
   }
