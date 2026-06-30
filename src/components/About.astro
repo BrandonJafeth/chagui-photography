@@ -18,24 +18,22 @@ const paragraphs = text.split('\n\n').filter(Boolean)
   <div class="max-w-6xl mx-auto">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
-      {/* ── Imagen (polaroid oscuro) ── */}
+      {/* ── Imagen polaroid ── */}
       <div class="flex justify-center lg:justify-start">
-        <div class="relative w-full max-w-sm">
-          {/* Tarjetas apiladas detrás */}
-          <div class="absolute inset-0 rotate-[-4deg] translate-y-[-1%] bg-white/5 border border-white/10 -z-10"></div>
-          <div class="absolute inset-0 rotate-3 translate-y-[-3%] bg-white/3 border border-white/5 -z-20"></div>
-
-          {/* Foto principal */}
-          <div class="border border-white/20 bg-black p-3 pb-8 shadow-2xl">
-            <img
-              src={imageUrl}
-              alt={imageAlt}
-              class="w-full aspect-4/5 object-cover"
-              loading="lazy"
-              width="400"
-              height="500"
-            />
+        <div class="polaroid-stack w-full max-w-xs sm:max-w-sm">
+          <div class="polaroid-card">
+            <div class="polaroid-inner">
+              <img
+                src={imageUrl}
+                alt={imageAlt}
+                class="w-full h-full object-cover object-top"
+                loading="lazy"
+                width="400"
+                height="500"
+              />
+            </div>
           </div>
+          <div class="polaroid-back" aria-hidden="true"></div>
         </div>
       </div>
 
@@ -108,3 +106,52 @@ const paragraphs = text.split('\n\n').filter(Boolean)
     </div>
   </div>
 </section>
+
+<style>
+  .polaroid-stack {
+    position: relative;
+  }
+
+  .polaroid-card {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background: #0d0d0d;
+    border: 3px solid #fff;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
+    transition: transform 0.3s ease;
+  }
+
+  .polaroid-inner {
+    width: 100%;
+    height: 100%;
+    padding: 4%;
+    padding-bottom: 13%;
+    background: #0d0d0d;
+  }
+
+  .polaroid-inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .polaroid-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background: #1a1a1a;
+    border: 3px solid rgba(255, 255, 255, 0.55);
+    transform: rotate(4deg) translateY(-2%);
+    z-index: 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  }
+
+  .polaroid-stack:hover .polaroid-card {
+    transform: rotate(-2deg);
+  }
+</style>

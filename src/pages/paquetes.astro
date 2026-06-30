@@ -7,32 +7,29 @@ import Packages from "@/components/Packages.astro";
   title="Paquetes de Fotografía"
   description="Paquetes de fotografía profesional en San José, Costa Rica. Bodas, retratos y más. Consultá disponibilidad con Photographic Images."
 >
-  <section class="pt-12 pb-0 bg-black">
-    <div class="max-w-3xl mx-auto px-4 text-center">
-      <h1 class="text-3xl md:text-4xl font-bold text-white uppercase tracking-wide mb-4">
-        Paquetes
-      </h1>
-      <div class="w-12 h-px bg-white/40 mx-auto mb-6"></div>
-      <p class="text-white/55 leading-relaxed">
-        Opciones pensadas para cada momento. Consultá por WhatsApp para recibir
-        una cotización personalizada.
-      </p>
-    </div>
-  </section>
+  {/* ── Header editorial asimétrico ── */}
+  <header class="pt-12 pb-10 md:pt-16 md:pb-12 bg-black border-b border-white/8">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
 
-  <Packages />
+        <div>
+          <p class="text-[0.65rem] uppercase tracking-[0.35em] text-white/30 mb-4">
+            Photographic Images
+          </p>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl text-white leading-none">
+            Paquetes
+          </h1>
+          <div class="w-12 h-px bg-white/40 mt-4"></div>
+        </div>
 
-  <section class="py-20 bg-black border-t border-white/8">
-    <div class="max-w-2xl mx-auto px-4 text-center">
-      <p class="text-white/50 mb-6">¿Tenés algo en mente que no está listado?</p>
-      <a
-        href="https://wa.me/50685546933?text=Hola%2C%20quisiera%20consultar%20sobre%20un%20paquete%20personalizado."
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-black font-semibold text-sm uppercase tracking-wider transition-all duration-300 hover:bg-white/90 hover:scale-105 min-h-11 focus-visible:outline-2 focus-visible:outline-white"
-      >
-        Consultar paquete personalizado
-      </a>
+        <p class="text-white/45 text-sm max-w-xs leading-relaxed sm:text-right">
+          Opciones pensadas para cada momento.<br />
+          Consultá por WhatsApp para una cotización personalizada.
+        </p>
+
+      </div>
     </div>
-  </section>
+  </header>
+
+  <Packages showHeader={false} />
 </Layout>

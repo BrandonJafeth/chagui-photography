@@ -24,6 +24,7 @@ export interface Package {
   image: string | null
   service_id: string           // FK → services.id
   is_active: boolean
+  is_featured?: boolean        // destacado visual — el admin lo controla
   order: number
 }
 
