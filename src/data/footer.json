@@ -1,7 +1,7 @@
 {
   "brand": {
     "name": "PHOTOGRAPHIC IMAGES",
-    "description": "Fotografía profesional con mirada propia. Bodas, retratos, eventos y fotografía comercial en San José, Costa Rica.",
+    "description": "Fotografía profesional con mirada propia. Bodas, retratos, eventos y sacramentos en Costa Rica.",
     "rating": {
       "score": 5,
       "max": 5,
@@ -14,10 +14,10 @@
     }
   },
   "services": [
-    { "label": "Bodas",                 "href": "/servicios/" },
-    { "label": "Retratos",              "href": "/servicios/" },
-    { "label": "Eventos",               "href": "/servicios/" },
-    { "label": "Fotografía Comercial",  "href": "/servicios/" }
+    { "label": "Bodas",     "href": "/servicios/bodas/"     },
+    { "label": "Retratos", "href": "/servicios/retratos/" },
+    { "label": "Eventos",  "href": "/servicios/eventos/"  },
+    { "label": "Bautizos y Sacramentos", "href": "/servicios/sacramentos/" }
   ],
   "infoLinks": [
     { "label": "Sobre mí",  "href": "/sobre-mi/"  },

@@ -32,7 +32,7 @@ const paragraphs = (service.detailed_description ?? service.description)
 ---
 
 <Layout
-  title={service.title}
+  title={`${service.title} en Costa Rica`}
   description={service.description}
   image={service.image}
 >
@@ -77,6 +77,9 @@ const paragraphs = (service.detailed_description ?? service.description)
         style="font-family: 'Playfair Display', Georgia, serif; font-style: italic;"
       >
         {service.title}
+        <span class="block text-xl md:text-2xl text-white/50 mt-3 not-italic tracking-widest uppercase" style="font-family: inherit; font-style: normal; font-size: clamp(0.85rem, 2vw, 1.15rem);">
+          en Costa Rica
+        </span>
       </h1>
 
       <div class="w-12 h-px bg-white/40 mt-6"></div>

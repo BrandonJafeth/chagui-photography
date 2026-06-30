@@ -14,7 +14,7 @@ interface Props {
 
 const {
   title,
-  description = "Fotografía profesional en San José, Costa Rica. Bodas, retratos, eventos y fotografía comercial. Photographic Images.",
+  description = "Fotógrafo profesional en San José con cobertura en todo Costa Rica. Bodas, retratos, eventos, bautizos y sacramentos. Isaías Díaz — Photographic Images.",
   image = "/favicon.svg",
 } = Astro.props;
 
@@ -23,9 +23,9 @@ const socialImageURL = new URL(image, Astro.url);
 
 const schemaLD = {
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
+  "@type": ["ProfessionalService", "LocalBusiness"],
   "name": "Photographic Images",
-  "description": "Fotografía profesional de bodas, retratos, eventos y fotografía comercial en San José, Costa Rica.",
+  "description": "Fotografía profesional de bodas, retratos, eventos, bautizos y sacramentos en Costa Rica.",
   "url": canonicalURL.href,
   "telephone": "+50685546933",
   "email": "isaiasdg14@hotmail.com",
@@ -43,16 +43,23 @@ const schemaLD = {
     "latitude": 9.9013,
     "longitude": -84.1083
   },
-  "areaServed": {
-    "@type": "GeoCircle",
-    "geoMidpoint": { "@type": "GeoCoordinates", "latitude": 9.9013, "longitude": -84.1083 },
-    "geoRadius": "30000"
-  },
+  "areaServed": [
+    { "@type": "City",    "name": "San José",    "sameAs": "https://www.wikidata.org/wiki/Q3236" },
+    { "@type": "State",   "name": "Guanacaste",  "containedInPlace": { "@type": "Country", "name": "Costa Rica" } },
+    { "@type": "Country", "name": "Costa Rica",  "sameAs": "https://www.wikidata.org/wiki/Q800" }
+  ],
   "openingHoursSpecification": {
     "@type": "OpeningHoursSpecification",
     "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
     "opens": "08:00",
     "closes": "18:00"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5",
+    "bestRating": "5",
+    "worstRating": "1",
+    "ratingCount": "20"
   }
 };
 ---
@@ -69,7 +76,7 @@ const schemaLD = {
     <title>{title} | Photographic Images — San José, CR</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
-    <meta name="keywords" content="fotógrafo San José Costa Rica, fotografía de bodas San José, fotografía profesional San José, fotografía de eventos San José, retratos profesionales San José, Photographic Images Costa Rica" />
+    <meta name="keywords" content="fotógrafo Costa Rica, fotógrafo San José Costa Rica, fotografía de bodas Costa Rica, fotógrafo de bodas Guanacaste, fotógrafo bodas Manuel Antonio, fotógrafo bodas Monteverde, retratos profesionales Costa Rica, fotografía de eventos Costa Rica, fotógrafo bautizos Costa Rica, fotografía primera comunión San José, fotógrafo confirmación Costa Rica, fotógrafo sacramentos Costa Rica, fotógrafo Hatillo, fotógrafo profesional San José, Photographic Images" />
     <meta name="author" content="Isaías Díaz García" />
     <meta name="robots" content="index, follow" />
 

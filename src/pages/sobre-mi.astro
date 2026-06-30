@@ -14,7 +14,7 @@ const featuredTestimonial = testimonials.find(t => t.is_visible) ?? testimonials
 
 <Layout
   title="Sobre mí — Isaías Díaz, Fotógrafo en San José, Costa Rica"
-  description="Conocé a Isaías Díaz, fotógrafo profesional con más de 25 años de experiencia en San José, Costa Rica. Bodas, retratos, eventos y fotografía comercial."
+  description="Conocé a Isaías Díaz, fotógrafo profesional con más de 25 años de experiencia en San José, Costa Rica. Bodas, retratos, eventos, bautizos y sacramentos."
 >
 
   {/* ── Hero ── */}
@@ -43,7 +43,7 @@ const featuredTestimonial = testimonials.find(t => t.is_visible) ?? testimonials
 
         {/* Identity */}
         <div class="order-1 lg:order-2">
-          <p class="text-[0.6rem] uppercase tracking-[0.35em] text-white/30 mb-6">
+          <p class="text-[0.6rem] uppercase tracking-[0.35em] text-white/50 mb-6">
             Photographic Images · San José, Costa Rica
           </p>
           <h1
@@ -88,7 +88,7 @@ const featuredTestimonial = testimonials.find(t => t.is_visible) ?? testimonials
   {/* ── Bio completo ── */}
   <section class="py-20 bg-black border-t border-white/8">
     <div class="max-w-6xl mx-auto px-4">
-      <p class="text-[0.6rem] uppercase tracking-[0.35em] text-white/25 mb-10">Mi historia</p>
+      <p class="text-[0.6rem] uppercase tracking-[0.35em] text-white/50 mb-10">Mi historia</p>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
         <div class="space-y-5">
           {paragraphs.slice(0, 2).map((p: string, i: number) => (
@@ -103,7 +103,7 @@ const featuredTestimonial = testimonials.find(t => t.is_visible) ?? testimonials
             <p class="leading-relaxed text-base md:text-lg text-white/50">{p}</p>
           ))}
           <div class="pt-4 border-t border-white/8">
-            <p class="text-white/30 text-xs uppercase tracking-[0.25em]">San José · Gran Área Metropolitana · Costa Rica</p>
+            <p class="text-white/50 text-xs uppercase tracking-[0.25em]">San José · Gran Área Metropolitana · Costa Rica</p>
           </div>
         </div>
       </div>
@@ -114,7 +114,7 @@ const featuredTestimonial = testimonials.find(t => t.is_visible) ?? testimonials
   <section class="py-20 bg-[#070707] border-t border-white/8">
     <div class="max-w-6xl mx-auto px-4">
       <div class="mb-14">
-        <p class="text-[0.6rem] uppercase tracking-[0.35em] text-white/25 mb-4">Forma de trabajar</p>
+        <p class="text-[0.6rem] uppercase tracking-[0.35em] text-white/50 mb-4">Forma de trabajar</p>
         <h2
           class="text-2xl md:text-3xl text-white"
           style="font-family: 'Playfair Display', Georgia, serif; font-style: italic;"
@@ -143,18 +143,13 @@ const featuredTestimonial = testimonials.find(t => t.is_visible) ?? testimonials
           },
         ].map(pillar => (
           <div class="bg-black p-8 md:p-10">
-            <span
-              class="block mb-8 font-mono text-xs tracking-widest"
-              style="color: rgba(255,255,255,0.12);"
-              aria-hidden="true"
-            >{pillar.n}</span>
             <h3
               class="text-xl text-white mb-4"
               style="font-family: 'Playfair Display', Georgia, serif; font-style: italic;"
             >
               {pillar.title}
             </h3>
-            <p class="text-white/45 text-sm leading-relaxed">{pillar.body}</p>
+            <p class="text-white/65 text-sm leading-relaxed">{pillar.body}</p>
           </div>
         ))}
       </div>
@@ -166,7 +161,7 @@ const featuredTestimonial = testimonials.find(t => t.is_visible) ?? testimonials
     <div class="max-w-6xl mx-auto px-4">
       <div class="flex items-end justify-between mb-12">
         <div>
-          <p class="text-[0.6rem] uppercase tracking-[0.35em] text-white/25 mb-4">Especialidades</p>
+          <p class="text-[0.6rem] uppercase tracking-[0.35em] text-white/50 mb-4">Especialidades</p>
           <h2
             class="text-2xl md:text-3xl text-white"
             style="font-family: 'Playfair Display', Georgia, serif; font-style: italic;"
@@ -177,7 +172,7 @@ const featuredTestimonial = testimonials.find(t => t.is_visible) ?? testimonials
         </div>
         <a
           href="/servicios/"
-          class="hidden sm:inline-flex items-center gap-2 text-xs text-white/30 hover:text-white uppercase tracking-widest transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-white"
+          class="hidden sm:inline-flex items-center gap-2 text-xs text-white/55 hover:text-white uppercase tracking-widest transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-white"
         >
           Ver todos
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -218,7 +213,7 @@ const featuredTestimonial = testimonials.find(t => t.is_visible) ?? testimonials
   {/* ── Featured testimonial ── */}
   <section class="py-20 md:py-28 bg-[#070707] border-t border-white/8">
     <div class="max-w-4xl mx-auto px-4">
-      <p class="text-[0.6rem] uppercase tracking-[0.35em] text-white/25 mb-12 text-center">
+      <p class="text-[0.6rem] uppercase tracking-[0.35em] text-white/50 mb-12 text-center">
         Lo que dicen los clientes
       </p>
       <div class="relative">
@@ -238,7 +233,7 @@ const featuredTestimonial = testimonials.find(t => t.is_visible) ?? testimonials
             <div class="w-8 h-px bg-white/25"></div>
             <div>
               <p class="text-white text-sm font-medium">{featuredTestimonial.client_name}</p>
-              <p class="text-white/35 text-xs mt-0.5">{featuredTestimonial.position}</p>
+              <p class="text-white/55 text-xs mt-0.5">{featuredTestimonial.position}</p>
             </div>
           </footer>
         </blockquote>
@@ -246,7 +241,7 @@ const featuredTestimonial = testimonials.find(t => t.is_visible) ?? testimonials
       <div class="mt-12 text-center">
         <a
           href="/#testimonios"
-          class="text-xs text-white/30 hover:text-white uppercase tracking-widest transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-white"
+          class="text-xs text-white/55 hover:text-white uppercase tracking-widest transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-white"
         >
           Ver más testimonios →
         </a>

@@ -38,13 +38,13 @@ export default function NavbarMobile({ navLinks, currentPath }: NavbarMobileProp
         <a
           href="/"
           onClick={closeMenu}
-          className="text-[0.6rem] uppercase tracking-[0.35em] text-white/35 hover:text-white/60 transition-colors duration-200"
+          className="text-[0.6rem] uppercase tracking-[0.35em] text-white/55 hover:text-white/75 transition-colors duration-200"
         >
           Photographic Images
         </a>
         <button
           onClick={closeMenu}
-          className="w-10 h-10 flex items-center justify-center text-white/50 hover:text-white transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-white"
+          className="w-10 h-10 flex items-center justify-center text-white/70 hover:text-white transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-white"
           aria-label="Cerrar menú"
           type="button"
         >
@@ -78,7 +78,7 @@ export default function NavbarMobile({ navLinks, currentPath }: NavbarMobileProp
                 transition: `opacity 0.35s ease ${isOpen ? index * 0.07 : 0}s, transform 0.35s ease ${isOpen ? index * 0.07 : 0}s`,
               }}
               className={`block py-2 text-center transition-colors duration-200 ${
-                isActive ? 'text-white' : 'text-white/40 hover:text-white/80'
+                isActive ? 'text-white' : 'text-white/65 hover:text-white'
               }`}
             >
               {link.label}
@@ -94,14 +94,14 @@ export default function NavbarMobile({ navLinks, currentPath }: NavbarMobileProp
 
       {/* Bottom bar */}
       <div className="flex items-center justify-between px-6 py-5">
-        <p className="text-[0.6rem] uppercase tracking-[0.3em] text-white/25">
+        <p className="text-[0.6rem] uppercase tracking-[0.3em] text-white/50">
           San José · Costa Rica
         </p>
         <a
           href="https://wa.me/50685546933"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 text-white/35 hover:text-white transition-colors duration-200 text-xs uppercase tracking-widest focus-visible:outline-2 focus-visible:outline-white"
+          className="flex items-center gap-2 text-white/55 hover:text-white transition-colors duration-200 text-xs uppercase tracking-widest focus-visible:outline-2 focus-visible:outline-white"
           aria-label="Contactar por WhatsApp"
         >
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
