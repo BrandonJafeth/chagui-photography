@@ -32,7 +32,7 @@ const visible = testimonials.filter(t => t.is_visible).sort((a, b) => a.order - 
     >
       <div class="flex gap-5 pl-4 pr-8 sm:px-1 min-w-max">
         {visible.map((t, idx) => (
-          <article data-index={idx} class="w-[min(calc(100vw-5rem),380px)] sm:w-95 shrink-0 bg-white/2.5 p-8 relative overflow-hidden transition-all duration-300 hover:bg-white/5 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/60">
+          <article data-index={idx} class="w-[min(calc(100vw-5rem),380px)] sm:w-95 shrink-0 bg-white/2.5 p-8 relative overflow-hidden transition-all duration-300 hover:bg-white/5 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/60 flex flex-col">
 
             {/* Decorative quote */}
             <span
@@ -56,12 +56,12 @@ const visible = testimonials.filter(t => t.is_visible).sort((a, b) => a.order - 
             </div>
 
             {/* Quote text */}
-            <blockquote class="text-white/70 text-sm leading-[1.85] mb-8 relative z-10">
+            <blockquote class="text-white/70 text-sm leading-[1.85] mb-8 relative z-10 flex-1">
               "{t.text}"
             </blockquote>
 
             {/* Author */}
-            <footer class="flex items-center gap-4">
+            <footer class="flex items-center gap-4 mt-auto">
               <div class="w-11 h-11 rounded-full bg-white/8 border border-white/15 flex items-center justify-center shrink-0">
                 <span
                   class="text-white/70 text-base font-semibold"
