@@ -1,8 +1,7 @@
 ---
-// TODO: migrar a Supabase — tabla services
-import { services } from '@/data/services'
+import { getServices } from '@/lib/db'
 
-const activeServices = services.filter(s => s.is_active).sort((a, b) => a.order - b.order)
+const activeServices = await getServices()
 ---
 
 <section id="servicios" class="py-24 bg-black">

@@ -7,7 +7,7 @@ const SERVICE_OPTIONS = [
   'Fotografía de Bodas',
   'Sesión de Retrato',
   'Eventos y Celebraciones',
-  'Fotografía Comercial',
+  'Bautizos y Sacramentos',
   'Otro',
 ]
 
@@ -43,8 +43,8 @@ export default function ContactFormWA() {
   }
 
   const inputClass =
-    'w-full px-4 py-3 bg-white/5 border border-white/15 text-white placeholder-white/30 focus:outline-none focus:border-white/50 transition-colors text-sm'
-  const labelClass = 'block text-xs font-semibold text-white/40 uppercase tracking-wider mb-2'
+    'w-full px-4 py-3 bg-white/8 border border-white/25 text-white placeholder-white/40 focus:outline-none focus:border-white/65 transition-colors text-sm'
+  const labelClass = 'block text-xs font-semibold text-white/60 uppercase tracking-wider mb-2'
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">

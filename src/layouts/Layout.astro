@@ -69,8 +69,8 @@ const schemaLD = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/jpeg" href="https://res.cloudinary.com/daqragn9m/image/upload/w_64,h_64,c_fill,g_face/v1782781402/libreria-chagui-sobre-nosotros_euzjwr.jpg" />
+    <link rel="apple-touch-icon" href="https://res.cloudinary.com/daqragn9m/image/upload/w_180,h_180,c_fill,g_face/v1782781402/libreria-chagui-sobre-nosotros_euzjwr.jpg" />
 
     <!-- SEO -->
     <title>{title} | Photographic Images — San José, CR</title>
@@ -105,19 +105,22 @@ const schemaLD = {
     <!-- Schema.org LocalBusiness -->
     <script type="application/ld+json" is:inline set:html={JSON.stringify(schemaLD)} />
 
-    <!-- Preconnect -->
+    <!-- Preconnect + Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://res.cloudinary.com" />
     <link rel="preconnect" href="https://images.unsplash.com" />
-
-    <!-- Fonts loaded via global.css -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Work+Sans:wght@300;400;500;600;700&display=swap"
+    />
 
     <ClientRouter />
   </head>
 
   <!-- dark class is on <html>, so dark: variants always apply -->
   <body class="bg-black text-white antialiased">
+    <div id="page-progress" aria-hidden="true"></div>
     <Navbar />
     <main>
       <slot />
@@ -140,4 +143,58 @@ const schemaLD = {
   ::-webkit-scrollbar-track { background: #0d0d0d; }
   ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
   ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+  /* ── Page transition progress bar ── */
+  #page-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    z-index: 9999;
+    pointer-events: none;
+    background: white;
+    transform-origin: left center;
+    transform: scaleX(0);
+    opacity: 0;
+  }
+
+  #page-progress.is-loading {
+    opacity: 0.75;
+    animation: progress-advance 1.8s cubic-bezier(0.1, 0.05, 0.3, 1) forwards;
+  }
+
+  #page-progress.is-done {
+    animation: none;
+    transform: scaleX(1);
+    opacity: 0;
+    transition: opacity 0.35s ease 0.05s;
+  }
+
+  @keyframes progress-advance {
+    0%   { transform: scaleX(0.04); }
+    40%  { transform: scaleX(0.55); }
+    70%  { transform: scaleX(0.75); }
+    100% { transform: scaleX(0.88); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #page-progress { display: none; }
+  }
 </style>
+
+<script>
+  const bar = document.getElementById('page-progress')!
+
+  document.addEventListener('astro:before-preparation', () => {
+    bar.classList.remove('is-done')
+    void bar.offsetWidth // force reflow to restart animation
+    bar.classList.add('is-loading')
+  })
+
+  document.addEventListener('astro:page-load', () => {
+    bar.classList.remove('is-loading')
+    bar.classList.add('is-done')
+    setTimeout(() => bar.classList.remove('is-done'), 400)
+  })
+</script>

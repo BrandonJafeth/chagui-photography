@@ -1,10 +1,8 @@
 ---
-// TODO: migrar a Supabase — tabla services
-// Al migrar: query → supabase.from('services').select('*').eq('is_active', true).order('order')
 import Layout from "../layouts/Layout.astro";
-import { services } from '@/data/services';
+import { getServices } from '@/lib/db'
 
-const activeServices = services.filter(s => s.is_active).sort((a, b) => a.order - b.order)
+const activeServices = await getServices()
 ---
 
 <Layout
@@ -28,7 +26,7 @@ const activeServices = services.filter(s => s.is_active).sort((a, b) => a.order 
         </div>
         <p class="text-white/45 text-sm max-w-xs leading-relaxed sm:text-right">
           Fotografía profesional para cada momento.<br />
-          Disponible en San José y el Gran Área Metropolitana.
+          Disponible en San José y en todo Costa Rica.
         </p>
       </div>
     </div>

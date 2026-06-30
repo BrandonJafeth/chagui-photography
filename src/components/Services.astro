@@ -1,6 +1,6 @@
 ---
-// TODO: migrar a Supabase — tabla services
-import { services } from '@/data/services'
+import { getServices } from '@/lib/db'
+const services = await getServices()
 ---
 
 <section id="servicios" class="py-24 bg-black">

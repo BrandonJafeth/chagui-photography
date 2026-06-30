@@ -46,6 +46,7 @@ const HERO_IMAGES = [
           alt={img.alt}
           class="hero-img w-full h-full object-cover"
           loading={i === 0 ? 'eager' : 'lazy'}
+          fetchpriority={i === 0 ? 'high' : undefined}
         />
       </div>
     ))

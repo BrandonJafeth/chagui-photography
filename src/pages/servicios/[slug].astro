@@ -1,29 +1,20 @@
 ---
-// TODO: migrar a Supabase — tabla services
-// Al migrar: reemplazar getStaticPaths por Astro en SSR con getStaticPaths leyendo desde Supabase
-// query: supabase.from('services').select('*').eq('is_active', true)
 import Layout from "../../layouts/Layout.astro";
 import Packages from "@/components/Packages.astro";
-import { services } from '@/data/services';
-import { packages } from '@/data/packages';
+import { getServices, getPackages } from '@/lib/db'
 
 export async function getStaticPaths() {
-  return services
-    .filter(s => s.is_active)
-    .map(service => ({
-      params: { slug: service.slug },
-      props:  { service },
-    }))
+  const services = await getServices()
+  return services.map(service => ({
+    params: { slug: service.slug },
+    props:  { service },
+  }))
 }
 
 const { service } = Astro.props
 
-// Packages associated to this service, OR universal (service_id null)
-// Currently all packages are universal (null), so all 3 always show.
-// When admin adds service-specific packages, they'll also appear here automatically.
-const associatedPkgs = packages.filter(
-  p => p.is_active && (p.service_id === service.id || p.service_id === null)
-)
+// Universal packages (service_id null) + any specific to this service
+const associatedPkgs = await getPackages(service.id)
 const hasPackages = associatedPkgs.length > 0
 
 const paragraphs = (service.detailed_description ?? service.description)
@@ -46,6 +37,7 @@ const paragraphs = (service.detailed_description ?? service.description)
       alt={service.title}
       class="absolute inset-0 w-full h-full object-cover"
       loading="eager"
+      fetchpriority="high"
       width="1200"
       height="700"
     />

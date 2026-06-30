@@ -1,40 +1,7 @@
-// Tipos mantenidos como referencia para la migración futura a Supabase.
-// El cliente de Supabase se agregará cuando se implemente el admin.
-// TODO: migrar — instalar @supabase/supabase-js y crear el cliente aquí.
+import { createClient } from '@supabase/supabase-js'
 
-export interface Service {
-  id: string
-  title: string
-  slug: string
-  description: string
-  detailed_description: string | null
-  image: string
-  features: string[]
-  is_active: boolean
-  order: number
-  created_at: string
-  updated_at: string
-}
+const url = import.meta.env.PUBLIC_SUPABASE_URL as string | undefined
+const key = import.meta.env.PUBLIC_SUPABASE_ANON_KEY as string | undefined
 
-export interface Testimonial {
-  id: string
-  client_name: string
-  text: string
-  rating: number
-  image: string | null
-  position: string | null
-  is_visible: boolean
-  order: number
-  created_at: string
-  updated_at: string
-}
-
-export interface SiteContent {
-  id: string
-  key: string
-  value: string
-  type: string
-  metadata: Record<string, unknown> | null
-  created_at: string
-  updated_at: string
-}
+// null when env vars not set — db.ts falls back to local data files
+export const supabase = url && key ? createClient(url, key) : null

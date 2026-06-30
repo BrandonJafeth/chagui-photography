@@ -21,6 +21,7 @@ const currentPath = Astro.url.pathname;
       <!-- Logo -->
       <a
         href="/"
+        data-astro-prefetch
         class="group focus-visible:outline-2 focus-visible:outline-white"
         aria-label="Photographic Images — Inicio"
       >
@@ -38,6 +39,7 @@ const currentPath = Astro.url.pathname;
         {NAV_LINKS.map(({ href, label }) => (
           <a
             href={href}
+            data-astro-prefetch
             class="text-base text-white/70 hover:text-white transition-colors duration-200 relative group focus-visible:outline-2 focus-visible:outline-white"
             style="font-family: 'Playfair Display', Georgia, serif; font-style: italic;"
           >
@@ -64,7 +66,7 @@ const currentPath = Astro.url.pathname;
 
       <!-- Mobile -->
       <div class="md:hidden">
-        <NavbarMobile client:load navLinks={NAV_LINKS} currentPath={currentPath} />
+        <NavbarMobile client:media="(max-width: 767px)" navLinks={NAV_LINKS} currentPath={currentPath} />
       </div>
 
     </div>

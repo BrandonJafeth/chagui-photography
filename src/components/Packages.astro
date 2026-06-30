@@ -1,8 +1,5 @@
 ---
-// TODO: migrar a Supabase — tabla packages
-// Al migrar: reemplazar `packages` por query → supabase.from('packages').select('*').eq('is_active', true).order('order')
-// service_id null = universal; service_id UUID = específico de servicio (filtrar por slug si se necesita)
-import { packages } from '@/data/packages'
+import { getPackages } from '@/lib/db'
 
 interface Props {
   preview?: boolean
@@ -10,7 +7,7 @@ interface Props {
 }
 const { preview = false, showHeader = true } = Astro.props
 
-const pkgs = packages.filter(p => p.is_active).sort((a, b) => a.order - b.order)
+const pkgs = await getPackages()
 ---
 
 <section id="paquetes" class:list={['bg-[#070707]', showHeader ? 'py-16 md:py-24' : 'pt-10 md:pt-14 pb-16 md:pb-24']}>
