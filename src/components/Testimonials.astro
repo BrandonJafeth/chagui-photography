@@ -17,7 +17,7 @@ const visible = testimonials.filter(t => t.is_visible).sort((a, b) => a.order - 
     </div>
 
     {/* Swipe hint — mobile only, fades after first scroll */}
-    <p id="testimonials-hint" class="flex items-center justify-center gap-2 text-xs text-white/25 uppercase tracking-widest mb-6 sm:hidden transition-opacity duration-500">
+    <p id="testimonials-hint" class="flex items-center justify-center gap-2 text-xs text-white/60 uppercase tracking-widest mb-6 sm:hidden transition-opacity duration-500">
       <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
       </svg>
@@ -72,7 +72,7 @@ const visible = testimonials.filter(t => t.is_visible).sort((a, b) => a.order - 
               </div>
               <div>
                 <p class="text-white text-sm font-medium">{t.client_name}</p>
-                {t.position && <p class="text-white/35 text-xs mt-0.5">{t.position}</p>}
+                {t.position && <p class="text-white/60 text-xs mt-0.5">{t.position}</p>}
               </div>
             </footer>
 

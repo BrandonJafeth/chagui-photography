@@ -22,7 +22,7 @@ const pkgs = await getPackages()
         {preview && (
           <a
             href="/paquetes/"
-            class="hidden sm:inline-flex items-center gap-2 text-sm text-white/40 hover:text-white transition-colors duration-200 uppercase tracking-wider focus-visible:outline-2 focus-visible:outline-white"
+            class="hidden sm:inline-flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors duration-200 uppercase tracking-wider focus-visible:outline-2 focus-visible:outline-white"
           >
             Ver todos
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -75,7 +75,7 @@ const pkgs = await getPackages()
               <p
                 class:list={[
                   'text-sm mb-8 leading-relaxed',
-                  isFeatured ? 'text-white/60' : 'text-white/40',
+                  isFeatured ? 'text-white/70' : 'text-white/60',
                 ]}
               >
                 {pkg.description}
@@ -138,7 +138,7 @@ const pkgs = await getPackages()
     {/* Página completa — CTA personalizado */}
     {!preview && (
       <div class="mt-16 py-12 border-t border-white/8 text-center">
-        <p class="text-white/35 text-sm mb-6">¿Tenés algo en mente que no está listado?</p>
+        <p class="text-white/60 text-sm mb-6">¿Tenés algo en mente que no está listado?</p>
         <a
           href={`https://wa.me/50685546933?text=${encodeURIComponent('Hola Isaías, me gustaría consultar sobre un paquete personalizado.')}`}
           target="_blank"

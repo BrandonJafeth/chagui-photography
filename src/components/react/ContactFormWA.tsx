@@ -112,7 +112,7 @@ export default function ContactFormWA() {
         Enviar por WhatsApp
       </button>
 
-      <p className="text-center text-xs text-white/30">
+      <p className="text-center text-xs text-white/60">
         O escribí directamente a{' '}
         <a
           href={`mailto:${EMAIL}`}
