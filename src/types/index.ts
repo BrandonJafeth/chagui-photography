@@ -14,6 +14,16 @@ export interface Service {
 }
 
 // TODO: migrar a Supabase — tabla packages
+//
+// DECISIÓN DE ESQUEMA: service_id es nullable.
+//   null  → paquete universal (aplica a cualquier ocasión — bodas, graduaciones, bautizos, etc.)
+//   UUID  → paquete específico de un servicio (feature futura, admin lo asigna)
+//
+// En Supabase:
+//   service_id UUID REFERENCES services(id) ON DELETE SET NULL  ← nullable FK
+//
+// Admin: crear paquete con "Categoría: Sin categoría / General" = service_id NULL.
+// Frontend: si service_id es null → mostrar siempre; si no → filtrar por servicio.
 export interface Package {
   id: string
   name: string
@@ -22,7 +32,7 @@ export interface Package {
   description: string
   includes: string[]
   image: string | null
-  service_id: string           // FK → services.id
+  service_id: string | null    // null = universal; UUID = específico de servicio
   is_active: boolean
   is_featured?: boolean        // destacado visual — el admin lo controla
   order: number

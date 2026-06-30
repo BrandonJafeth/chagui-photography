@@ -16,15 +16,23 @@ const visible = testimonials.filter(t => t.is_visible).sort((a, b) => a.order - 
       <div class="w-12 h-px bg-white/40 mx-auto"></div>
     </div>
 
+    {/* Swipe hint — mobile only, fades after first scroll */}
+    <p id="testimonials-hint" class="flex items-center justify-center gap-2 text-xs text-white/25 uppercase tracking-widest mb-6 sm:hidden transition-opacity duration-500">
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+      Deslizá para ver más
+    </p>
+
     {/* Drag-scroll horizontal */}
     <div
       id="testimonials-scroll"
-      class="overflow-x-auto pb-6 cursor-grab active:cursor-grabbing select-none"
+      class="overflow-x-auto pb-4 cursor-grab active:cursor-grabbing select-none"
       style="-ms-overflow-style:none; scrollbar-width:none;"
     >
-      <div class="flex gap-5 px-1 min-w-max">
-        {visible.map((t) => (
-          <article class="w-[min(calc(100vw-2.5rem),380px)] shrink-0 bg-white/2.5 p-8 relative overflow-hidden transition-all duration-300 hover:bg-white/5 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/60">
+      <div class="flex gap-5 pl-4 pr-8 sm:px-1 min-w-max">
+        {visible.map((t, idx) => (
+          <article data-index={idx} class="w-[min(calc(100vw-5rem),380px)] sm:w-95 shrink-0 bg-white/2.5 p-8 relative overflow-hidden transition-all duration-300 hover:bg-white/5 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/60">
 
             {/* Decorative quote */}
             <span
@@ -73,6 +81,18 @@ const visible = testimonials.filter(t => t.is_visible).sort((a, b) => a.order - 
       </div>
     </div>
 
+    {/* Scroll dots — mobile only */}
+    {visible.length > 1 && (
+      <div id="testimonials-dots" class="flex justify-center gap-2 mt-6 sm:hidden" aria-hidden="true">
+        {visible.map((_, i) => (
+          <button
+            class:list={['testimonial-dot w-1.5 h-1.5 rounded-full transition-all duration-300', i === 0 ? 'bg-white/70 w-4' : 'bg-white/20']}
+            data-idx={i}
+          />
+        ))}
+      </div>
+    )}
+
   </div>
 </section>
 )}
@@ -85,8 +105,9 @@ const visible = testimonials.filter(t => t.is_visible).sort((a, b) => a.order - 
   function initTestimonialsScroll() {
     const el = document.getElementById('testimonials-scroll')
     if (!el) return
-    let isDown = false, startX = 0, scrollLeft = 0
 
+    // Drag scroll
+    let isDown = false, startX = 0, scrollLeft = 0
     el.addEventListener('mousedown', (e) => {
       isDown = true
       startX = e.pageX - el.offsetLeft
@@ -99,6 +120,34 @@ const visible = testimonials.filter(t => t.is_visible).sort((a, b) => a.order - 
       e.preventDefault()
       el.scrollLeft = scrollLeft - (e.pageX - el.offsetLeft - startX) * 1.5
     })
+
+    // Dots + hint fade
+    const dots   = document.querySelectorAll<HTMLElement>('.testimonial-dot')
+    const hint   = document.getElementById('testimonials-hint')
+    let hinted   = false
+
+    function updateDots() {
+      if (!el || !dots.length) return
+      const articles = el.querySelectorAll<HTMLElement>('article')
+      if (!articles.length) return
+      const cardW  = articles[0].offsetWidth + 20 // gap-5 = 20px
+      const active = Math.round(el.scrollLeft / cardW)
+      dots.forEach((d, i) => {
+        const isActive = i === active
+        d.classList.toggle('bg-white/70', isActive)
+        d.classList.toggle('w-4',         isActive)
+        d.classList.toggle('bg-white/20', !isActive)
+        d.classList.toggle('w-1.5',       !isActive)
+      })
+      if (!hinted && el.scrollLeft > 10 && hint) {
+        hint.style.opacity = '0'
+        hint.style.pointerEvents = 'none'
+        hinted = true
+      }
+    }
+
+    el.addEventListener('scroll', updateDots, { passive: true })
+    updateDots()
   }
 
   initTestimonialsScroll()
