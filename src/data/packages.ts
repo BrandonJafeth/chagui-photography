@@ -10,8 +10,6 @@ export const packages: Package[] = [
   {
     id: 'pkg-esencial',
     name: 'Esencial',
-    price: 45000,
-    price_label: 'Desde ₡45,000',
     description: 'Cobertura de los momentos principales de tu evento.',
     includes: [
       'Cobertura 4 horas',
@@ -27,8 +25,6 @@ export const packages: Package[] = [
   {
     id: 'pkg-clasico',
     name: 'Clásico',
-    price: 280000,
-    price_label: 'Desde ₡280,000',
     description: 'Cobertura completa con sesión de retrato incluida.',
     is_featured: true,
     includes: [
@@ -47,8 +43,6 @@ export const packages: Package[] = [
   {
     id: 'pkg-premium',
     name: 'Premium',
-    price: 450000,
-    price_label: 'Desde ₡450,000',
     description: 'La experiencia completa para que no se pierda ningún detalle.',
     includes: [
       'Cobertura 12 horas',

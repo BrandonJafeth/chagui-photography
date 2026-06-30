@@ -27,8 +27,6 @@ export interface Service {
 export interface Package {
   id: string
   name: string
-  price: number | null
-  price_label: string          // "Desde ₡150,000" o "Consultar"
   description: string
   includes: string[]
   image: string | null

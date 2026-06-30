@@ -1,32 +1,29 @@
 ---
-// TODO: migrar a Supabase — tabla site_content (keys: about_*)
+// TODO: migrar a Supabase — tabla site_content
 import Layout from "../layouts/Layout.astro";
 import { getContent } from "@/data/site-content";
+import { services } from "@/data/services";
+import { testimonials } from "@/data/testimonials";
 
 const aboutText   = getContent('about_text')
 const imageUrl    = getContent('about_image_url')
 const paragraphs  = aboutText.split('\n\n').filter(Boolean)
+const activeServices = services.filter(s => s.is_active).sort((a, b) => a.order - b.order)
+const featuredTestimonial = testimonials.find(t => t.is_visible) ?? testimonials[0]
 ---
 
 <Layout
-  title="Sobre mí — Fotógrafo en San José, Costa Rica"
-  description="Conocé a Photographic Images, fotografía profesional en San José, Costa Rica. Bodas, retratos y eventos con mirada propia."
+  title="Sobre mí — Isaías Díaz, Fotógrafo en San José, Costa Rica"
+  description="Conocé a Isaías Díaz, fotógrafo profesional con más de 25 años de experiencia en San José, Costa Rica. Bodas, retratos, eventos y fotografía comercial."
 >
-  <section class="py-24 px-4 bg-black min-h-screen">
-    <div class="max-w-5xl mx-auto">
 
-      <div class="mb-16">
-        <h1 class="text-4xl md:text-5xl lg:text-6xl text-white leading-none mb-3"
-            style="font-family: 'Playfair Display', Georgia, serif; font-style: italic;">
-          Sobre mí
-        </h1>
-        <div class="w-12 h-px bg-white/40"></div>
-      </div>
-
+  {/* ── Hero ── */}
+  <section class="pt-28 md:pt-32 pb-20 bg-black">
+    <div class="max-w-6xl mx-auto px-4">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
         {/* Polaroid */}
-        <div class="flex justify-center lg:justify-start">
+        <div class="flex justify-center lg:justify-start order-2 lg:order-1">
           <div class="polaroid-stack w-full max-w-xs sm:max-w-sm">
             <div class="polaroid-card">
               <div class="polaroid-inner">
@@ -44,46 +41,252 @@ const paragraphs  = aboutText.split('\n\n').filter(Boolean)
           </div>
         </div>
 
-        {/* Bio */}
-        <div class="space-y-6">
-          {paragraphs.map(p => (
-            <p class="text-white/70 leading-relaxed text-base md:text-[1.05rem]">{p}</p>
-          ))}
+        {/* Identity */}
+        <div class="order-1 lg:order-2">
+          <p class="text-[0.6rem] uppercase tracking-[0.35em] text-white/30 mb-6">
+            Photographic Images · San José, Costa Rica
+          </p>
+          <h1
+            class="text-5xl md:text-6xl lg:text-7xl text-white leading-none mb-6"
+            style="font-family: 'Playfair Display', Georgia, serif; font-style: italic;"
+          >
+            Isaías<br />Díaz
+          </h1>
+          <div class="w-12 h-px bg-white/40 mb-6"></div>
+          <p class="text-white/55 text-base leading-relaxed mb-10 max-w-md">
+            {paragraphs[0]}
+          </p>
 
-          <div class="pt-4 space-y-3 border-t border-white/10">
-            <div class="flex items-center gap-3 text-sm">
-              <span class="text-white/35 uppercase tracking-wider text-xs">WhatsApp</span>
-              <a href="https://wa.me/50685546933" target="_blank" rel="noopener noreferrer"
-                 class="text-white hover:text-white/70 transition-colors">
-                +506 8554-6933
-              </a>
-            </div>
-            <div class="flex items-center gap-3 text-sm">
-              <span class="text-white/35 uppercase tracking-wider text-xs">Email</span>
-              <a href="mailto:isaiasdg14@hotmail.com"
-                 class="text-white hover:text-white/70 transition-colors">
-                isaiasdg14@hotmail.com
-              </a>
-            </div>
-            <div class="flex items-center gap-3 text-sm">
-              <span class="text-white/35 uppercase tracking-wider text-xs">Zona</span>
-              <span class="text-white">San José · Gran Área Metropolitana</span>
-            </div>
-          </div>
-
-          <div class="pt-6">
-            <a
-              href="/#contacto"
-              class="inline-flex items-center gap-2 px-6 py-3 bg-white text-black font-semibold text-sm uppercase tracking-wider transition-all duration-300 hover:bg-white/90 hover:scale-105 min-h-11"
-            >
-              Trabajemos juntos
-            </a>
-          </div>
+          <a
+            href="https://wa.me/50685546933"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-7 py-3.5 bg-white text-black text-sm uppercase tracking-wider font-semibold transition-all duration-200 hover:bg-white/90 min-h-11 focus-visible:outline-2 focus-visible:outline-white"
+          >
+            Hablemos
+          </a>
         </div>
 
       </div>
     </div>
   </section>
+
+  {/* ── Pull quote ── */}
+  <section class="py-20 md:py-28 bg-[#070707] border-t border-white/8">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <p
+        class="text-3xl md:text-4xl lg:text-5xl text-white/80 leading-snug"
+        style="font-family: 'Playfair Display', Georgia, serif; font-style: italic;"
+      >
+        "Porque los momentos pasan…<br />
+        <span class="text-white">las fotografías los hacen eternos."</span>
+      </p>
+      <div class="w-8 h-px bg-white/30 mx-auto mt-10"></div>
+    </div>
+  </section>
+
+  {/* ── Bio completo ── */}
+  <section class="py-20 bg-black border-t border-white/8">
+    <div class="max-w-6xl mx-auto px-4">
+      <p class="text-[0.6rem] uppercase tracking-[0.35em] text-white/25 mb-10">Mi historia</p>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+        <div class="space-y-5">
+          {paragraphs.slice(0, 2).map((p: string, i: number) => (
+            <p class:list={[
+              'leading-relaxed text-base md:text-lg',
+              i === 0 ? 'text-white/75' : 'text-white/50'
+            ]}>{p}</p>
+          ))}
+        </div>
+        <div class="space-y-5">
+          {paragraphs.slice(2).map((p: string) => (
+            <p class="leading-relaxed text-base md:text-lg text-white/50">{p}</p>
+          ))}
+          <div class="pt-4 border-t border-white/8">
+            <p class="text-white/30 text-xs uppercase tracking-[0.25em]">San José · Gran Área Metropolitana · Costa Rica</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ── Approach pillars ── */}
+  <section class="py-20 bg-[#070707] border-t border-white/8">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="mb-14">
+        <p class="text-[0.6rem] uppercase tracking-[0.35em] text-white/25 mb-4">Forma de trabajar</p>
+        <h2
+          class="text-2xl md:text-3xl text-white"
+          style="font-family: 'Playfair Display', Georgia, serif; font-style: italic;"
+        >
+          Mi enfoque
+        </h2>
+        <div class="w-12 h-px bg-white/40 mt-4"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/8">
+        {[
+          {
+            n: '01',
+            title: 'Naturalidad',
+            body: 'Fotografío sin poses forzadas. Las mejores imágenes ocurren cuando la persona se olvida de la cámara y actúa como es.',
+          },
+          {
+            n: '02',
+            title: 'Emoción auténtica',
+            body: 'Capturo sonrisas espontáneas, miradas cómplices y abrazos reales — momentos que muchas veces pasan desapercibidos.',
+          },
+          {
+            n: '03',
+            title: 'Recuerdo eterno',
+            body: 'Cada cliente queda con imágenes que atesora y comparte por generaciones. Eso es lo que me motiva en cada sesión.',
+          },
+        ].map(pillar => (
+          <div class="bg-black p-8 md:p-10">
+            <span
+              class="block mb-8 font-mono text-xs tracking-widest"
+              style="color: rgba(255,255,255,0.12);"
+              aria-hidden="true"
+            >{pillar.n}</span>
+            <h3
+              class="text-xl text-white mb-4"
+              style="font-family: 'Playfair Display', Georgia, serif; font-style: italic;"
+            >
+              {pillar.title}
+            </h3>
+            <p class="text-white/45 text-sm leading-relaxed">{pillar.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* ── Services teaser ── */}
+  <section class="py-20 bg-black border-t border-white/8">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex items-end justify-between mb-12">
+        <div>
+          <p class="text-[0.6rem] uppercase tracking-[0.35em] text-white/25 mb-4">Especialidades</p>
+          <h2
+            class="text-2xl md:text-3xl text-white"
+            style="font-family: 'Playfair Display', Georgia, serif; font-style: italic;"
+          >
+            Qué fotografío
+          </h2>
+          <div class="w-12 h-px bg-white/40 mt-4"></div>
+        </div>
+        <a
+          href="/servicios/"
+          class="hidden sm:inline-flex items-center gap-2 text-xs text-white/30 hover:text-white uppercase tracking-widest transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-white"
+        >
+          Ver todos
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+
+      <div>
+        {activeServices.map((svc) => (
+          <a
+            href={`/servicios/${svc.slug}/`}
+            class="group flex items-center justify-between py-5 border-b border-white/8 hover:border-white/15 transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-white"
+          >
+            <div>
+              <h3
+                class="text-lg md:text-xl text-white/70 group-hover:text-white transition-colors duration-200"
+                style="font-family: 'Playfair Display', Georgia, serif; font-style: italic;"
+              >
+                {svc.title}
+              </h3>
+              <p class="text-white/30 group-hover:text-white/45 text-xs mt-1 transition-colors duration-200 max-w-sm line-clamp-1">
+                {svc.description.split('.')[0]}.
+              </p>
+            </div>
+            <svg
+              class="w-4 h-4 shrink-0 ml-6 text-white/20 group-hover:text-white/60 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 17L17 7M17 7H7M17 7v10" />
+            </svg>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* ── Featured testimonial ── */}
+  <section class="py-20 md:py-28 bg-[#070707] border-t border-white/8">
+    <div class="max-w-4xl mx-auto px-4">
+      <p class="text-[0.6rem] uppercase tracking-[0.35em] text-white/25 mb-12 text-center">
+        Lo que dicen los clientes
+      </p>
+      <div class="relative">
+        <span
+          class="absolute -top-6 -left-2 select-none pointer-events-none"
+          style="font-size: 9rem; font-family: 'Playfair Display', serif; line-height: 1; color: rgba(255,255,255,0.05);"
+          aria-hidden="true"
+        >"</span>
+        <blockquote class="relative">
+          <p
+            class="text-2xl md:text-3xl text-white/80 leading-relaxed mb-8"
+            style="font-family: 'Playfair Display', Georgia, serif; font-style: italic;"
+          >
+            {featuredTestimonial.text}
+          </p>
+          <footer class="flex items-center gap-4">
+            <div class="w-8 h-px bg-white/25"></div>
+            <div>
+              <p class="text-white text-sm font-medium">{featuredTestimonial.client_name}</p>
+              <p class="text-white/35 text-xs mt-0.5">{featuredTestimonial.position}</p>
+            </div>
+          </footer>
+        </blockquote>
+      </div>
+      <div class="mt-12 text-center">
+        <a
+          href="/#testimonios"
+          class="text-xs text-white/30 hover:text-white uppercase tracking-widest transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-white"
+        >
+          Ver más testimonios →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {/* ── CTA final ── */}
+  <section class="py-20 bg-black border-t border-white/8">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-8">
+      <div>
+        <h2
+          class="text-3xl md:text-4xl text-white leading-snug"
+          style="font-family: 'Playfair Display', Georgia, serif; font-style: italic;"
+        >
+          Trabajemos juntos
+        </h2>
+        <p class="text-white/40 text-sm mt-2 max-w-sm">
+          Contame tu idea y diseñamos la sesión perfecta para vos.
+        </p>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a
+          href="https://wa.me/50685546933"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white text-black text-sm uppercase tracking-wider font-semibold transition-all duration-200 hover:bg-white/90 min-h-11 focus-visible:outline-2 focus-visible:outline-white"
+        >
+          WhatsApp
+        </a>
+        <a
+          href="mailto:isaiasdg14@hotmail.com"
+          class="inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-white/20 text-white/70 text-sm uppercase tracking-wider transition-all duration-300 hover:border-white hover:text-white min-h-11 focus-visible:outline-2 focus-visible:outline-white"
+        >
+          Email
+        </a>
+      </div>
+    </div>
+  </section>
+
 </Layout>
 
 <style>
