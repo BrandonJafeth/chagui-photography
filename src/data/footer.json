@@ -1,95 +1,44 @@
 {
   "brand": {
-    "name": "GADEA ISO",
-    "description": "El arte de capturar tu esencia. Fotografía profesional para momentos que permanecen.",
+    "name": "PHOTOGRAPHIC IMAGES",
+    "description": "Fotografía profesional con mirada propia. Bodas, retratos, eventos y fotografía comercial en San José, Costa Rica.",
     "rating": {
       "score": 5,
       "max": 5,
-      "total": 16,
+      "total": 20,
       "label": "clientes"
     },
     "stats": {
-      "events": 100,
+      "events": 80,
       "label": "eventos documentados"
     }
   },
   "services": [
-    {
-      "label": "Bodas",
-      "href": "/servicios/bodas"
-    },
-    {
-      "label": "Eventos",
-      "href": "/servicios/eventos"
-    },
-    {
-      "label": "Cumpleaños",
-      "href": "/servicios/cumpleanos"
-    },
-    {
-      "label": "Promoción",
-      "href": "/servicios/promocion"
-    }
+    { "label": "Bodas",                 "href": "/servicios/" },
+    { "label": "Retratos",              "href": "/servicios/" },
+    { "label": "Eventos",               "href": "/servicios/" },
+    { "label": "Fotografía Comercial",  "href": "/servicios/" }
   ],
   "infoLinks": [
-    {
-      "label": "Portfolio",
-      "href": "/portafolio"
-    },
-    {
-      "label": "Sobre mí",
-      "href": "/sobre-mi"
-    },
-    {
-      "label": "Servicios",
-      "href": "/servicios"
-    }
+    { "label": "Sobre mí",  "href": "/sobre-mi/"  },
+    { "label": "Servicios", "href": "/servicios/" },
+    { "label": "Paquetes",  "href": "/paquetes/"  },
+    { "label": "Contacto",  "href": "/#contacto"  }
   ],
   "contact": {
-    "email": "joel@gadeaiso.com",
-    "phone": "+506 8900-0108",
-    "location": "Nicoya, Guanacaste",
-    "googleMaps": "https://share.google/JJ4g9NcRcFLmyBmbt",
-    "schedule": "Lun-Sab 9:00-18:00"
+    "email":      "isaiasdg14@hotmail.com",
+    "phone":      "+506 8554-6933",
+    "location":   "San José, Costa Rica",
+    "googleMaps": "https://maps.google.com/?q=Hatillo,San+Jose,Costa+Rica",
+    "schedule":   "Lun–Sab 8:00–18:00"
   },
   "social": [
-    {
-      "name": "Instagram",
-      "href": "https://www.instagram.com/joelgadea_",
-      "icon": "instagram"
-    },
-    {
-      "name": "Facebook",
-      "href": "https://www.facebook.com/profile.php?id=100073611974767",
-      "icon": "facebook"
-    },
-    {
-      "name": "WhatsApp",
-      "href": "https://wa.me/50683518022",
-      "icon": "whatsapp"
-    },
-    {
-      "name": "Email",
-      "href": "mailto:joel@gadeaiso.com",
-      "icon": "email"
-    }
+    { "name": "WhatsApp", "href": "https://wa.me/50685546933",          "icon": "whatsapp"  },
+    { "name": "Email",    "href": "mailto:isaiasdg14@hotmail.com",       "icon": "email"     }
   ],
   "legal": {
-    "companyName": "Gadea ISO",
+    "companyName": "Photographic Images",
     "country": "Costa Rica",
-    "links": [
-      {
-        "label": "Privacidad",
-        "href": "/privacidad"
-      },
-      {
-        "label": "Términos",
-        "href": "/terminos"
-      },
-      {
-        "label": "Cookies",
-        "href": "/cookies"
-      }
-    ]
+    "links": []
   }
 }

@@ -1,94 +1,250 @@
 ---
-import { HeroGallery } from "@/components/react/HeroGallery";
-import { supabase } from "@/lib/supabase";
-import heroContentData from "@/data/hero.json";
+/**
+ * Toque distintivo: hero asimétrico con panel de texto izquierdo (gradiente negro)
+ * + imagen a pantalla completa con efecto Ken Burns.
+ * Difiere del hero de Gadea (texto centrado sobre carrusel) en la composición
+ * izquierda-anclada y en el texto decorativo vertical de fondo.
+ *
+ * Para cambiar imágenes: editar el array HERO_IMAGES abajo.
+ * Cada imagen debe estar en src/assets/hero/ o ser una URL externa.
+ */
 
-// Obtener solo las imágenes del Hero desde Supabase
-const { data: heroImagesData, error: imagesError } = await supabase
-  .from("hero_images")
-  .select("*")
-  .eq("is_visible", true)
-  .order("order", { ascending: true });
-
-if (imagesError) {
-  console.error("Error fetching hero images:", imagesError);
-}
-
-// Contenido del Hero desde JSON
-const heroContent = heroContentData;
-
-// Transformar imágenes de Supabase al formato esperado por el componente
-const heroImages = (heroImagesData || []).map((img) => ({
-  id: img.id,
-  url: img.url,
-  alt: img.alt,
-}));
+// ── Reemplazar estos src con imágenes locales cuando estén disponibles ──
+// import foto1 from '@/assets/hero/foto-1.jpg'
+// import foto2 from '@/assets/hero/foto-2.jpg'
+// import foto3 from '@/assets/hero/foto-3.jpg'
+const HERO_IMAGES = [
+  {
+    src: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=1920&q=85',
+    alt: 'Fotografía de bodas en San José, Costa Rica — Photographic Images',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1920&q=85',
+    alt: 'Sesión de retratos en San José — Photographic Images',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=1920&q=85',
+    alt: 'Fotografía de eventos en Costa Rica — Photographic Images',
+  },
+]
 ---
 
 <section
   id="hero"
-  class="relative h-[95vh] min-h-[700px] max-h-[750px] flex items-center justify-center overflow-hidden"
+  class="relative h-[88vh] min-h-150 overflow-hidden bg-black"
+  aria-label="Hero — Photographic Images"
 >
-  {/* Galería de fondo (React Island para interactividad) */}
-  <HeroGallery client:load images={heroImages} />
+  {/* ── Slides de imagen ── */}
+  {
+    HERO_IMAGES.map((img, i) => (
+      <div
+        class:list={['hero-slide absolute inset-0', i === 0 ? 'active' : '']}
+        aria-hidden={i !== 0}
+      >
+        <img
+          src={img.src}
+          alt={img.alt}
+          class="hero-img w-full h-full object-cover"
+          loading={i === 0 ? 'eager' : 'lazy'}
+        />
+      </div>
+    ))
+  }
 
-  {/* Contenido del Hero */}
-  <div class="relative z-10 container mx-auto px-4 text-center">
-    <h1
-      class="text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-6 animate-fade-in-up drop-shadow-2xl"
-      style="animation-delay: 0.2s"
+  {/* ── Overlays ── */}
+  {/* Gradiente izquierda → transparente: crea el panel asimétrico */}
+  <div
+    class="absolute inset-0 bg-linear-to-r from-black via-black/75 to-transparent pointer-events-none"
+    aria-hidden="true"
+  ></div>
+  {/* Gradiente inferior para anclaje */}
+  <div
+    class="absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-black/20 pointer-events-none"
+    aria-hidden="true"
+  ></div>
+
+  {/* ── Texto decorativo de fondo (elemento distintivo) ── */}
+  <div
+    class="absolute -right-8 top-1/2 -translate-y-1/2 select-none pointer-events-none"
+    aria-hidden="true"
+  >
+    <span
+      class="text-white/4 font-bold tracking-[0.15em] leading-none"
+      style="font-size: clamp(8rem, 18vw, 18rem); writing-mode: vertical-rl;"
     >
-      {heroContent.title}
+      PHOTO
+    </span>
+  </div>
+
+  {/* ── Contenido principal ── */}
+  <div class="relative z-10 h-full flex flex-col justify-center pb-44 px-8 md:px-16 max-w-xl">
+
+    {/* Brand name stacked — título primero */}
+    <h1
+      class="leading-[0.85] mb-4 hero-reveal"
+      style="animation-delay: 0.1s"
+    >
+      <span
+        class="block text-white font-bold uppercase"
+        style="font-size: clamp(2.5rem, 6vw, 4.5rem); letter-spacing: -0.02em;"
+      >
+        Photographic
+      </span>
+      <span
+        class="block text-white/40 font-bold uppercase"
+        style="font-size: clamp(2.5rem, 6vw, 4.5rem); letter-spacing: -0.02em;"
+      >
+        Images
+      </span>
     </h1>
 
-    <p
-      class="text-lg md:text-xl lg:text-2xl text-white/90 mb-8 max-w-3xl mx-auto animate-fade-in-up drop-shadow-lg"
-      style="animation-delay: 0.4s"
+    {/* Eyebrow — debajo del título */}
+    <div
+      class="flex items-center gap-3 mb-5 hero-reveal"
+      style="animation-delay: 0.2s"
     >
-      {heroContent.subtitle}
+      <span class="block w-8 h-px bg-white/40"></span>
+      <p class="text-white/40 uppercase tracking-[0.25em] text-xs">
+        San José · Costa Rica
+      </p>
+    </div>
+
+    {/* Tagline */}
+    <p
+      class="text-white/80 text-lg md:text-xl font-semibold mb-2 hero-reveal"
+      style="animation-delay: 0.3s"
+    >
+      Momentos que permanecen
+    </p>
+
+    <p
+      class="text-white/45 text-sm mb-8 max-w-xs leading-relaxed hero-reveal"
+      style="animation-delay: 0.38s"
+    >
+      Fotografía de bodas, retratos y eventos con mirada propia.
     </p>
 
     <div
-      class="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up"
-      style="animation-delay: 0.6s"
+      class="flex flex-col sm:flex-row gap-3 hero-reveal"
+      style="animation-delay: 0.52s"
     >
       <a
-        href={heroContent.primaryCta.link}
-        class="px-8 py-4 bg-white text-black font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105"
+        href="/#contacto"
+        class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-black font-semibold text-sm uppercase tracking-wider transition-all duration-300 hover:bg-white/90 hover:scale-105 min-h-11 focus-visible:outline-2 focus-visible:outline-white"
       >
-        {heroContent.primaryCta.text}
+        Solicitar cotización
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
       </a>
-
       <a
-        href=/#contact
-        class="px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:shadow-lg hover:scale-105 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm"
+        href="/servicios/"
+        class="inline-flex items-center justify-center px-6 py-3 border border-white/40 text-white text-sm uppercase tracking-wider transition-all duration-300 hover:border-white hover:bg-white/10 min-h-11 focus-visible:outline-2 focus-visible:outline-white"
       >
-        {heroContent.secondaryCta.text}
+        Ver servicios →
       </a>
     </div>
+  </div>
+
+  {/* ── Indicadores de slide ── */}
+  <div class="absolute bottom-8 left-0 right-0 flex justify-center gap-2 z-20" role="tablist" aria-label="Indicadores de imagen">
+    {
+      HERO_IMAGES.map((_, i) => (
+        <button
+          class:list={[
+            'hero-dot w-6 h-[2px] transition-all duration-500 focus-visible:outline-2 focus-visible:outline-white',
+            i === 0 ? 'bg-white' : 'bg-white/30',
+          ]}
+          data-index={i}
+          role="tab"
+          aria-label={`Imagen ${i + 1}`}
+          aria-selected={i === 0}
+        />
+      ))
+    }
   </div>
 </section>
 
 <style>
-  @keyframes fade-in-up {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  /* Ken Burns: la imagen activa escala suavemente */
+  @keyframes kenburns {
+    from { transform: scale(1.06); }
+    to   { transform: scale(1.0);  }
   }
 
-  .animate-fade-in-up {
-    animation: fade-in-up 0.8s ease-out forwards;
+  @media (prefers-reduced-motion: reduce) {
+    .hero-img { animation: none !important; }
+  }
+
+  .hero-slide {
     opacity: 0;
+    transition: opacity 1.2s ease-in-out;
+  }
+  .hero-slide.active {
+    opacity: 1;
+  }
+  .hero-slide.active .hero-img {
+    animation: kenburns 7s ease-out forwards;
   }
 
-  /* Mejorar contraste del texto */
-  h1,
-  p {
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  /* Reveal de texto al cargar */
+  @keyframes revealUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0);    }
+  }
+  .hero-reveal {
+    opacity: 0;
+    animation: revealUp 0.7s ease-out forwards;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-reveal {
+      opacity: 1;
+      animation: none;
+    }
   }
 </style>
+
+<script>
+  function initHero() {
+    const slides = Array.from(document.querySelectorAll<HTMLElement>('.hero-slide'))
+    const dots   = Array.from(document.querySelectorAll<HTMLButtonElement>('.hero-dot'))
+    if (slides.length === 0) return
+
+    let current = 0
+    let timer: ReturnType<typeof setInterval>
+
+    function goTo(index: number) {
+      slides[current].classList.remove('active')
+      dots[current]?.classList.replace('bg-white', 'bg-white/30')
+      dots[current]?.setAttribute('aria-selected', 'false')
+
+      current = index
+      slides[current].classList.add('active')
+      dots[current]?.classList.replace('bg-white/30', 'bg-white')
+      dots[current]?.setAttribute('aria-selected', 'true')
+    }
+
+    function next() {
+      goTo((current + 1) % slides.length)
+    }
+
+    function startTimer() {
+      timer = setInterval(next, 6000)
+    }
+
+    startTimer()
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => {
+        clearInterval(timer)
+        goTo(i)
+        startTimer()
+      })
+    })
+  }
+
+  // Initial load + View Transitions
+  initHero()
+  document.addEventListener('astro:page-load', initHero)
+</script>

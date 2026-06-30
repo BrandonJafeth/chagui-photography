@@ -1,0 +1,45 @@
+---
+const items = [
+  'Photographic Images',
+  'Bodas',
+  'Retratos',
+  'Eventos',
+  'Fotografía Comercial',
+  'San José',
+  'Costa Rica',
+]
+---
+
+<div
+  class="relative overflow-hidden border-y border-white/8 bg-black py-4"
+  aria-hidden="true"
+>
+  <div class="marquee-outer flex whitespace-nowrap">
+    {[0, 1].map(() => (
+      <div class="marquee-inner flex items-center gap-0 shrink-0">
+        {items.map(item => (
+          <span class="inline-flex items-center gap-8 text-white/25 text-[0.65rem] uppercase tracking-[0.35em] px-8">
+            {item}
+            <span class="w-[3px] h-[3px] rounded-full bg-white/20 shrink-0"></span>
+          </span>
+        ))}
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .marquee-outer {
+    animation: marquee 30s linear infinite;
+  }
+  .marquee-inner {
+    min-width: 50%;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-outer { animation: none; }
+  }
+</style>

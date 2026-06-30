@@ -1,236 +1,106 @@
 ---
-import { supabase } from '@/lib/supabase'
-import type { Database } from '@/lib/supabase'
-import { getOptimizedImage } from '@/utils/cloudinary'
+// TODO: migrar a Supabase — tabla testimonials
+import { testimonials } from '@/data/testimonials'
 
-type Testimonial = Database['public']['Tables']['testimonials']['Row']
-
-// Obtener testimonios visibles desde Supabase
-const { data: testimonials, error } = await supabase
-  .from('testimonials')
-  .select('*')
-  .eq('is_visible', true)
-  .order('order', { ascending: true })
-
-if (error) {
-  console.error('Error fetching testimonials:', error)
-}
-
-const activeTestimonials: Testimonial[] = testimonials || []
-
-// Función para renderizar estrellas
-const renderStars = (rating: number) => {
-  return Array.from({ length: 5 }, (_, i) => i < rating)
-}
+const visible = testimonials.filter(t => t.is_visible).sort((a, b) => a.order - b.order)
 ---
 
-<section id="testimonials" class="py-12 px-4 bg-white dark:bg-black/90 transition-colors duration-300">
-  <div class="max-w-7xl mx-auto">
-    <!-- Título de la sección -->
-    <div class="text-center mb-16">
-      <h2 class="text-2xl md:text-3xl font-semibold text-[#000000] dark:text-white mb-2">
-        TESTIMONIOS
+{visible.length > 0 && (
+<section id="testimonios" class="py-24 bg-[#070707]">
+  <div class="max-w-6xl mx-auto px-4">
+
+    <div class="mb-14 text-center">
+      <h2 class="text-3xl md:text-4xl text-white mb-3">
+        Testimonios
       </h2>
-      <div class="w-16 h-px bg-[#000000] dark:bg-white mx-auto mb-6"></div>
-      <p class="text-lg text-[#000000]/70 dark:text-gray-400 max-w-2xl tracking-wide mx-auto">
-        Lo que dicen nuestros clientes
-      </p>
+      <div class="w-12 h-px bg-white/40 mx-auto"></div>
     </div>
 
-    <!-- Contenedor horizontal con scroll -->
-    {activeTestimonials.length > 0 ? (
-      <div id="testimonials-scroll" class="overflow-x-auto pb-8 scrollbar-hide cursor-grab active:cursor-grabbing">
-        <div class="flex gap-8 px-4 min-w-max">
-          {activeTestimonials.map((testimonial) => (
-            <div class="relative w-[calc(100vw-2rem)] md:w-[380px] shrink-0">
-              <!-- Cinta adhesiva horizontal (estilo polaroid) -->
-              <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-28 h-8 bg-[#d4c5a0]/80 dark:bg-white/20 rotate-0 z-10 drop-shadow-md backdrop-blur-[1px]"
-                style="clip-path: polygon(0% 0%, 5% 12.5%, 0% 25%, 5% 37.5%, 0% 50%, 5% 62.5%, 0% 75%, 5% 87.5%, 0% 100%, 100% 100%, 95% 87.5%, 100% 75%, 95% 62.5%, 100% 50%, 95% 37.5%, 100% 25%, 95% 12.5%, 100% 0%);">
-              </div>
-              
-              <!-- Tarjeta del testimonio -->
-              <div class="bg-white dark:bg-[#1a1a1a] mt-2 border-4 border-white dark:border-[#2a2a2a] shadow-xl/20 p-5 pt-7 md:p-8 md:pt-10 transition-all duration-300 hover:shadow-xl/30 hover:-translate-y-1 select-none">
-                <!-- Header con foto y nombre -->
-                <div class="flex items-start gap-4 mb-4">
-                  <div class="relative shrink-0">
-                    {testimonial.image ? (
-                      <img 
-                        src={getOptimizedImage(testimonial.image, { width: 100, height: 100, crop: 'fill' })} 
-                        alt={testimonial.client_name}
-                        class="w-14 h-14 rounded-full object-cover"
-                        width="56"
-                        height="56"
-                        loading="lazy"
-                      />
-                    ) : (
-                      <div class="w-14 h-14 rounded-full bg-[#c4c4c4] dark:bg-gray-700 flex items-center justify-center">
-                        <span class="text-white font-bold text-xl">
-                          {testimonial.client_name.charAt(0).toUpperCase()}
-                        </span>
-                      </div>
-                    )}
-                  </div>
+    {/* Drag-scroll horizontal */}
+    <div
+      id="testimonials-scroll"
+      class="overflow-x-auto pb-6 cursor-grab active:cursor-grabbing select-none"
+      style="-ms-overflow-style:none; scrollbar-width:none;"
+    >
+      <div class="flex gap-5 px-1 min-w-max">
+        {visible.map((t) => (
+          <article class="w-[min(calc(100vw-2.5rem),380px)] shrink-0 bg-white/2.5 p-8 relative overflow-hidden transition-all duration-300 hover:bg-white/5 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/60">
 
-                  <div class="flex-1">
-                    <h3 class="font-semibold text-[#000000] dark:text-white text-base">
-                      {testimonial.client_name}
-                    </h3>
-                    {testimonial.position && (
-                      <p class="text-xs text-[#999999] dark:text-gray-500">
-                        {testimonial.position}
-                      </p>
-                    )}
-                  </div>
-                </div>
+            {/* Decorative quote */}
+            <span
+              class="absolute top-0 right-4 text-white/4.5 select-none pointer-events-none leading-none"
+              style="font-family: 'Playfair Display', Georgia, serif; font-size: 8rem; font-style: italic; line-height: 0.9;"
+              aria-hidden="true"
+            >&ldquo;</span>
 
-                <!-- Estrellas -->
-                <div class="flex gap-1 mb-4">
-                  {renderStars(testimonial.rating).map((filled) => (
-                    <svg 
-                      class="w-4 h-4 text-[#000000] dark:text-white"
-                      fill="currentColor" 
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-
-                <!-- Texto del testimonio -->
-                <p class="text-[#333333] dark:text-gray-300 text-sm leading-relaxed mb-6">
-                  "{testimonial.text}"
-                </p>
-
-                <!-- Fecha -->
-                {testimonial.created_at && (
-                  <p class="text-xs text-[#cccccc] dark:text-gray-600 text-right">
-                    {new Date(testimonial.created_at).toLocaleDateString('es-ES', { 
-                      month: 'long', 
-                      year: 'numeric' 
-                    }).toLowerCase()}
-                  </p>
-                )}
-              </div>
+            {/* Stars */}
+            <div class="flex gap-1 mb-6" aria-label={`${t.rating} de 5 estrellas`}>
+              {Array.from({ length: 5 }, (_, i) => (
+                <svg
+                  class:list={['w-3.5 h-3.5', i < t.rating ? 'text-white/60' : 'text-white/15']}
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  aria-hidden="true"
+                >
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </svg>
+              ))}
             </div>
-          ))}
-        </div>
+
+            {/* Quote text */}
+            <blockquote class="text-white/70 text-sm leading-[1.85] mb-8 relative z-10">
+              "{t.text}"
+            </blockquote>
+
+            {/* Author */}
+            <footer class="flex items-center gap-4">
+              <div class="w-11 h-11 rounded-full bg-white/8 border border-white/15 flex items-center justify-center shrink-0">
+                <span
+                  class="text-white/70 text-base font-semibold"
+                  style="font-family: 'Playfair Display', Georgia, serif; font-style: italic;"
+                >
+                  {t.client_name.charAt(0)}
+                </span>
+              </div>
+              <div>
+                <p class="text-white text-sm font-medium">{t.client_name}</p>
+                {t.position && <p class="text-white/35 text-xs mt-0.5">{t.position}</p>}
+              </div>
+            </footer>
+
+          </article>
+        ))}
       </div>
-    ) : (
-      <div class="text-center py-12">
-        <p class="text-lg text-[#000000]/70 dark:text-gray-400">
-          No hay testimonios disponibles en este momento.
-        </p>
-      </div>
-    )}
+    </div>
+
   </div>
 </section>
-
-<script>
-  // Estado global para los event listeners
-  let scrollState = {
-    isDown: false,
-    startX: 0,
-    scrollLeft: 0
-  };
-
-  // Función para configurar drag to scroll
-  function setupDragScroll() {
-    const scrollContainer = document.getElementById('testimonials-scroll');
-    
-    if (!scrollContainer) return;
-
-    // Limpiar estado
-    scrollState = {
-      isDown: false,
-      startX: 0,
-      scrollLeft: 0
-    };
-
-    scrollContainer.addEventListener('mousedown', (e: MouseEvent) => {
-      scrollState.isDown = true;
-      scrollContainer.classList.add('active');
-      scrollState.startX = e.pageX - scrollContainer.offsetLeft;
-      scrollState.scrollLeft = scrollContainer.scrollLeft;
-    });
-
-    scrollContainer.addEventListener('mouseleave', () => {
-      scrollState.isDown = false;
-      scrollContainer.classList.remove('active');
-    });
-
-    scrollContainer.addEventListener('mouseup', () => {
-      scrollState.isDown = false;
-      scrollContainer.classList.remove('active');
-    });
-
-    scrollContainer.addEventListener('mousemove', (e: MouseEvent) => {
-      if (!scrollState.isDown) return;
-      e.preventDefault();
-      const x = e.pageX - scrollContainer.offsetLeft;
-      const walk = (x - scrollState.startX) * 2;
-      scrollContainer.scrollLeft = scrollState.scrollLeft - walk;
-    });
-  }
-
-  // Ejecutar en carga inicial
-  setupDragScroll();
-
-  // Re-ejecutar después de navegación con ClientRouter
-  document.addEventListener('astro:page-load', () => {
-    setupDragScroll();
-  });
-</script>
+)}
 
 <style>
-  /* Ocultar scrollbar pero mantener funcionalidad */
-  .scrollbar-hide {
-    -ms-overflow-style: none;  /* Internet Explorer 10+ */
-    scrollbar-width: none;  /* Firefox */
-  }
-  
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;  /* Safari and Chrome */
-  }
-
-  /* Animación de entrada para las tarjetas */
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* Aplicar animación escalonada a las tarjetas */
-  .overflow-x-auto > div > div {
-    animation: fadeInUp 0.6s ease-out forwards;
-    opacity: 0;
-  }
-
-  .overflow-x-auto > div > div:nth-child(1) {
-    animation-delay: 0.1s;
-  }
-
-  .overflow-x-auto > div > div:nth-child(2) {
-    animation-delay: 0.2s;
-  }
-
-  .overflow-x-auto > div > div:nth-child(3) {
-    animation-delay: 0.3s;
-  }
-
-  .overflow-x-auto > div > div:nth-child(4) {
-    animation-delay: 0.4s;
-  }
-
-  .overflow-x-auto > div > div:nth-child(5) {
-    animation-delay: 0.5s;
-  }
-
-  .overflow-x-auto > div > div:nth-child(6) {
-    animation-delay: 0.6s;
-  }
+  #testimonials-scroll::-webkit-scrollbar { display: none; }
 </style>
+
+<script>
+  function initTestimonialsScroll() {
+    const el = document.getElementById('testimonials-scroll')
+    if (!el) return
+    let isDown = false, startX = 0, scrollLeft = 0
+
+    el.addEventListener('mousedown', (e) => {
+      isDown = true
+      startX = e.pageX - el.offsetLeft
+      scrollLeft = el.scrollLeft
+    })
+    el.addEventListener('mouseleave', () => { isDown = false })
+    el.addEventListener('mouseup',    () => { isDown = false })
+    el.addEventListener('mousemove',  (e) => {
+      if (!isDown) return
+      e.preventDefault()
+      el.scrollLeft = scrollLeft - (e.pageX - el.offsetLeft - startX) * 1.5
+    })
+  }
+
+  initTestimonialsScroll()
+  document.addEventListener('astro:page-load', initTestimonialsScroll)
+</script>

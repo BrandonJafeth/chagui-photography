@@ -10,22 +10,55 @@ interface Props {
   title: string;
   description?: string;
   image?: string;
-  transparent?: boolean;
 }
 
 const {
   title,
-  description = "Fotografía profesional en Nicoya, Guanacaste y todo Costa Rica. Capturamos tus momentos más especiales: bodas, eventos, retratos y sesiones comerciales.",
-  image = "/favicon.svg", // TODO: Reemplazar con una imagen real para compartir en redes (ej: /og-image.jpg)
-  transparent = false,
+  description = "Fotografía profesional en San José, Costa Rica. Bodas, retratos, eventos y fotografía comercial. Photographic Images.",
+  image = "/favicon.svg",
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const socialImageURL = new URL(image, Astro.url);
+
+const schemaLD = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Photographic Images",
+  "description": "Fotografía profesional de bodas, retratos, eventos y fotografía comercial en San José, Costa Rica.",
+  "url": canonicalURL.href,
+  "telephone": "+50685546933",
+  "email": "isaiasdg14@hotmail.com",
+  "priceRange": "$$",
+  "image": socialImageURL.href,
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Hatillo",
+    "addressLocality": "San José",
+    "addressRegion": "San José",
+    "addressCountry": "CR"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 9.9013,
+    "longitude": -84.1083
+  },
+  "areaServed": {
+    "@type": "GeoCircle",
+    "geoMidpoint": { "@type": "GeoCoordinates", "latitude": 9.9013, "longitude": -84.1083 },
+    "geoRadius": "30000"
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+    "opens": "08:00",
+    "closes": "18:00"
+  }
+};
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang="es" class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -33,162 +66,71 @@ const socialImageURL = new URL(image, Astro.url);
     <meta name="generator" content={Astro.generator} />
 
     <!-- SEO -->
-    <title>{title} | GADEA ISO - Fotógrafo Profesional en Costa Rica</title>
+    <title>{title} | Photographic Images — San José, CR</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
-    <meta name="keywords" content="fotógrafo profesional costa rica, fotógrafo en nicoya, fotógrafo en guanacaste, fotografía de bodas costa rica, bodas guanacaste, sesiones familiares costa rica, retratos empresariales, fotografía comercial costa rica, joel gadea, gadea iso" />
-    <meta name="author" content="Joel Gadea" />
+    <meta name="keywords" content="fotógrafo San José Costa Rica, fotografía de bodas San José, fotografía profesional San José, fotografía de eventos San José, retratos profesionales San José, Photographic Images Costa Rica" />
+    <meta name="author" content="Isaías Díaz García" />
     <meta name="robots" content="index, follow" />
 
-    <!-- Geo Tags for Costa Rica -->
-    <meta name="geo.region" content="CR-G" />
-    <meta name="geo.placename" content="Nicoya, Guanacaste, Costa Rica" />
-    <meta name="geo.position" content="10.1444;-85.4517" />
-    <meta name="ICBM" content="10.1444, -85.4517" />
+    <!-- Geo — Hatillo, San José -->
+    <meta name="geo.region"    content="CR-SJ" />
+    <meta name="geo.placename" content="San José, Costa Rica" />
+    <meta name="geo.position"  content="9.9013;-84.1083" />
+    <meta name="ICBM"          content="9.9013, -84.1083" />
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonicalURL} />
-    <meta property="og:title" content={title} />
+    <!-- Open Graph -->
+    <meta property="og:type"        content="website" />
+    <meta property="og:url"         content={canonicalURL} />
+    <meta property="og:title"       content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={socialImageURL} />
-    <meta property="og:site_name" content="GADEA ISO - Fotografía Profesional" />
-    <meta property="og:locale" content="es_CR" />
+    <meta property="og:image"       content={socialImageURL} />
+    <meta property="og:site_name"   content="Photographic Images" />
+    <meta property="og:locale"      content="es_CR" />
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={canonicalURL} />
-    <meta property="twitter:title" content={title} />
+    <meta property="twitter:card"        content="summary_large_image" />
+    <meta property="twitter:url"         content={canonicalURL} />
+    <meta property="twitter:title"       content={title} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={socialImageURL} />
+    <meta property="twitter:image"       content={socialImageURL} />
 
-    <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json" is:inline set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "PhotographyBusiness",
-      "name": "GADEA ISO",
-      "image": socialImageURL.href,
-      "url": "https://www.gadeafotografia.com/",
-      "telephone": "+50683518022",
-      "email": "info@gadeafotografia.com",
-      "priceRange": "$$",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Nicoya Centro",
-        "addressLocality": "Nicoya",
-        "addressRegion": "Guanacaste",
-        "postalCode": "50201",
-        "addressCountry": "CR"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 10.1444,
-        "longitude": -85.4517
-      },
-      "openingHoursSpecification": {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday"
-        ],
-        "opens": "09:00",
-        "closes": "18:00"
-      },
-      "sameAs": [
-        "https://www.instagram.com/joelgadea_/",
-        "https://www.facebook.com/profile.php?id=100073611974767&locale=es_LA",
-        "https://share.google/JJ4g9NcRcFLmyBmbt"
-      ]
-    })} />
+    <!-- Schema.org LocalBusiness -->
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(schemaLD)} />
 
     <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://res.cloudinary.com" />
+    <link rel="preconnect" href="https://images.unsplash.com" />
 
-    <!-- ClientRouter para navegación SPA con transiciones -->
+    <!-- Fonts loaded via global.css -->
+
     <ClientRouter />
-
-    <!-- Theme Script - Compatible con ClientRouter -->
-    <script is:inline>
-      // Función para aplicar el tema
-      function applyTheme() {
-        const theme = localStorage.getItem("theme");
-        const prefersDark = window.matchMedia(
-          "(prefers-color-scheme: dark)"
-        ).matches;
-
-        if (theme === "dark" || (!theme && prefersDark)) {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
-        }
-      }
-
-      // Aplicar tema inmediatamente
-      applyTheme();
-
-      // Escuchar eventos de navegación de View Transitions
-      document.addEventListener("astro:after-swap", applyTheme);
-    </script>
   </head>
-  <body
-    class="bg-white text-black/98 dark:text-white dark:bg-black transition-colors duration-300"
-  >
-    <Navbar transparent={transparent} />
 
+  <!-- dark class is on <html>, so dark: variants always apply -->
+  <body class="bg-black text-white antialiased">
+    <Navbar />
     <main>
       <slot />
     </main>
-
     <Footer />
     <ScrollToTop />
-    <WhatsAppButton phoneNumber="+50683518022" />
+    <WhatsAppButton phoneNumber="+50685546933" />
   </body>
 </html>
 
 <style is:global>
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 80px; /* Compensar el navbar fixed */
+    scroll-padding-top: 80px;
   }
 
-  body {
-    min-height: 100vh;
-  }
+  body { min-height: 100vh; }
 
-  /* Smooth scrollbar - Light Mode */
-  ::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: #000000;
-    border-radius: 5px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: #333333;
-  }
-
-  /* Smooth scrollbar - Dark Mode */
-  .dark ::-webkit-scrollbar-track {
-    background: #1a1a1a;
-  }
-
-  .dark ::-webkit-scrollbar-thumb {
-    background: #666666;
-  }
-
-  .dark ::-webkit-scrollbar-thumb:hover {
-    background: #888888;
-  }
+  ::-webkit-scrollbar       { width: 8px; }
+  ::-webkit-scrollbar-track { background: #0d0d0d; }
+  ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #555; }
 </style>

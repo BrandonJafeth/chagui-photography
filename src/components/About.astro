@@ -1,189 +1,110 @@
 ---
-import { supabase } from "@/lib/supabase";
+// TODO: migrar a Supabase — tabla site_content (keys: about_*)
+import { getContent } from '@/data/site-content'
 
-// Fetch About Us content from Supabase
-const { data: aboutData, error } = await supabase
-  .from("about_us")
-  .select("*")
-  .eq("is_active", true)
-  .order("order", { ascending: true })
-  .single();
+const title     = getContent('about_title')
+const subtitle  = getContent('about_subtitle')
+const text      = getContent('about_text')
+const imageUrl  = getContent('about_image_url')
+const imageAlt  = 'Photographic Images — fotógrafo profesional en San José, Costa Rica'
 
-// Fallback data si no hay contenido en Supabase
-const aboutContent = aboutData || {
-  title: "SOBRE NOSOTROS",
-  description: "Contenido no disponible",
-  image_url:
-    "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=800&q=80",
-  image_alt: "Sobre Nosotros",
-};
-
-// Parsear descripción para separar subtítulo del resto
-const lines = aboutContent.description?.split("\n\n") || [];
-const subtitle = lines[0] || "";
-const restContent = lines.slice(1).join("\n\n") || "";
+const paragraphs = text.split('\n\n').filter(Boolean)
 ---
 
 <section
-  id="about"
-  class="py-20 px-4 bg-white dark:bg-black/90 transition-colors duration-300"
+  id="sobre-mi"
+  class="py-24 px-4 bg-black"
 >
-  <div class="max-w-7xl mx-auto">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg: gap-12 items-center">
-      <!-- Imagen -->
-      <div
-        class="order-2 lg:order-1 animate-fade-in flex justify-center lg:justify-start px-4"
-        style="animation-delay: 0.2s; opacity: 0; animation-fill-mode: forwards;"
-      >
-        <div class="relative w-full max-w-[350px] sm:max-w-md">
-          <!-- Stack de fotos -->
-          <div class="polaroid-stack">
-            <!-- Foto principal -->
-            <div class="polaroid-card">
-              <div class="polaroid-inner">
-                <img
-                  src={aboutContent.image_url}
-                  alt={aboutContent.image_alt || aboutContent.title}
-                  class="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-            <!-- Foto de fondo 1 -->
-            <div class="polaroid-card polaroid-back-1"></div>
-            <!-- Foto de fondo 2 -->
-            <div class="polaroid-card polaroid-back-2"></div>
+  <div class="max-w-6xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+
+      {/* ── Imagen (polaroid oscuro) ── */}
+      <div class="flex justify-center lg:justify-start">
+        <div class="relative w-full max-w-sm">
+          {/* Tarjetas apiladas detrás */}
+          <div class="absolute inset-0 rotate-[-4deg] translate-y-[-1%] bg-white/5 border border-white/10 -z-10"></div>
+          <div class="absolute inset-0 rotate-3 translate-y-[-3%] bg-white/3 border border-white/5 -z-20"></div>
+
+          {/* Foto principal */}
+          <div class="border border-white/20 bg-black p-3 pb-8 shadow-2xl">
+            <img
+              src={imageUrl}
+              alt={imageAlt}
+              class="w-full aspect-4/5 object-cover"
+              loading="lazy"
+              width="400"
+              height="500"
+            />
           </div>
         </div>
       </div>
 
-      <!-- Contenido -->
-      <div
-        class="order-1 lg:order-2 animate-fade-in"
-        style="animation-delay: 0.4s; opacity: 0; animation-fill-mode: forwards;"
-      >
-        <!-- Título con línea inferior -->
-        <div class="mb-8 text-center">
-          <h2
-            class="text-2xl md:text-3xl font-semibold text-[#000000] dark:text-white uppercase mb-2"
-          >
-            {aboutContent.title}
+      {/* ── Texto ── */}
+      <div>
+        <div class="mb-8">
+          <h2 class="text-3xl md:text-4xl text-white mb-3">
+            {title}
           </h2>
-          <div class="w-16 h-[1px] bg-black dark:bg-white mx-auto"></div>
+          <div class="w-12 h-px bg-white/40"></div>
         </div>
 
-        <!-- Subtítulo -->
-        {
-          subtitle && (
-            <p class="text-lg text-[#000000]/70 dark:text-gray-400 max-w-2xl mx-2">
-              {subtitle}
-            </p>
-          )
-        }
+        {subtitle && (
+          <p class="text-lg text-white/60 mb-6 leading-relaxed">{subtitle}</p>
+        )}
 
-        <!-- Descripción -->
-        <div
-          class="space-y-4 text-gray-700 dark:text-gray-300 mx-2 leading-relaxed"
-        transition:name="description-aboutUs" 
+        {/* Stats strip */}
+        <div class="grid grid-cols-3 gap-4 py-7 border-y border-white/10 mb-8">
+          <div class="text-center">
+            <p
+              class="text-2xl md:text-3xl text-white font-bold"
+              style="font-family: 'Playfair Display', Georgia, serif; font-style: italic;"
+            >
+              80<span class="text-white/35">+</span>
+            </p>
+            <p class="text-[0.65rem] text-white/40 uppercase tracking-wider mt-1">Eventos</p>
+          </div>
+          <div class="text-center border-x border-white/10">
+            <p
+              class="text-2xl md:text-3xl text-white font-bold"
+              style="font-family: 'Playfair Display', Georgia, serif; font-style: italic;"
+            >
+              5<span class="text-white/35">★</span>
+            </p>
+            <p class="text-[0.65rem] text-white/40 uppercase tracking-wider mt-1">Calificación</p>
+          </div>
+          <div class="text-center">
+            <p
+              class="text-2xl md:text-3xl text-white font-bold"
+              style="font-family: 'Playfair Display', Georgia, serif; font-style: italic;"
+            >
+              25<span class="text-white/35">+</span>
+            </p>
+            <p class="text-[0.65rem] text-white/40 uppercase tracking-wider mt-1">Años</p>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          {paragraphs.map((p) => (
+            <p class="text-white/70 leading-relaxed text-base md:text-[1.05rem]">{p}</p>
+          ))}
+        </div>
+
+        <div class="mt-10 flex flex-col sm:flex-row gap-4">
+          <a
+            href="/#contacto"
+            class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-black font-semibold text-sm uppercase tracking-wider transition-all duration-300 hover:bg-white/90 hover:scale-105 min-h-11 focus-visible:outline-2 focus-visible:outline-white"
           >
-          {
-            restContent
-              .split(".")
-              .filter((sentence: string) => sentence.trim())
-              .map((sentence: string) => (
-                <p class="text-base md:text-lg">{sentence.trim()}.</p>
-              ))
-          }
+            Hablemos de tu proyecto
+          </a>
+          <a
+            href="/#servicios"
+            class="inline-flex items-center justify-center px-6 py-3 border border-white/30 text-white/80 text-sm uppercase tracking-wider transition-all duration-300 hover:border-white hover:text-white min-h-11"
+          >
+            Ver servicios →
+          </a>
         </div>
       </div>
+
     </div>
   </div>
 </section>
-
-<style>
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .animate-fade-in {
-    animation: fade-in 0.8s ease-out;
-  }
-
-  /* Polaroid Stack Effect */
-  .polaroid-stack {
-    position: relative;
-    width: 100%;
-    margin: 0 auto;
-  }
-
-  .polaroid-card {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 4 / 5;
-    background: #fff;
-    border: 4px solid #000;
-    box-shadow: 0 5% 15% rgba(0, 0, 0, 0.5);
-    transition: transform 0.25s ease;
-  }
-
-  .polaroid-inner {
-    width: 100%;
-    height: 100%;
-    padding: 3%;
-    padding-bottom: 8%;
-    background: #fff;
-  }
-
-  .polaroid-inner img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  /* Fotos de fondo apiladas */
-  .polaroid-back-1,
-  .polaroid-back-2 {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: #e8e8e8;
-    pointer-events: none;
-  }
-
-  .polaroid-back-1 {
-    transform: rotate(-4deg) translateY(-2%);
-    z-index: -1;
-  }
-
-  .polaroid-back-2 {
-    transform: rotate(4deg) translateY(-4%);
-    z-index: -2;
-  }
-
-  /* Hover effect */
-  .polaroid-stack:hover .polaroid-card:first-child {
-    transform: rotate(-2deg);
-  }
-
-  /* Dark mode */
-  :global(.dark) .polaroid-card {
-    background: #1a1a1a;
-    border-color: #fff;
-  }
-
-  :global(.dark) .polaroid-inner {
-    background: #1a1a1a;
-  }
-
-  :global(.dark) .polaroid-back-1,
-  :global(.dark) .polaroid-back-2 {
-    background: #2a2a2a;
-  }
-</style>

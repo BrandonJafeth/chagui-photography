@@ -2,24 +2,24 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from "@tailwindcss/vite";
 import react from "@astrojs/react";
-import vercel from "@astrojs/vercel/serverless";
 import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://www.gadeafotografia.com',
-  output: 'server', // Habilita SSR para API routes
+  site: 'https://isaiasfotografia.com',  // TODO: actualizar con dominio real
+  output: 'static',
   trailingSlash: 'always',
-  
+
   vite: {
     plugins: [tailwindcss()],
   },
 
-  // @ts-ignore
-  adapter: vercel(),
-
   integrations: [
     react(),
     sitemap(),
-  ]
+  ],
+
+  image: {
+    domains: ['res.cloudinary.com', 'images.unsplash.com'],
+  },
 });

@@ -1,24 +1,79 @@
 ---
+// TODO: migrar a Supabase — tabla site_content (keys: about_*)
 import Layout from "../layouts/Layout.astro";
-import PhilosophySection from "../components/about/PhilosophySection.astro";
-import ValuesSection from "../components/about/ValuesSection.astro";
-import CTASection from "../components/about/CTASection.astro";
-import AboutUsSection from "@/components/about/AboutUsSection.astro";
+import { getContent } from "@/data/site-content";
+
+const aboutText   = getContent('about_text')
+const imageUrl    = getContent('about_image_url')
+const paragraphs  = aboutText.split('\n\n').filter(Boolean)
 ---
 
-<Layout title="Sobre Mí - Joel Gadea">
-  <main class="bg-white dark:bg-black transition-colors duration-300">
+<Layout
+  title="Sobre mí — Fotógrafo en San José, Costa Rica"
+  description="Conocé a Photographic Images, fotografía profesional en San José, Costa Rica. Bodas, retratos y eventos con mirada propia."
+>
+  <section class="py-24 px-4 bg-black min-h-screen">
+    <div class="max-w-5xl mx-auto">
 
-    <!-- Section: Sobre Nosotros con Ver más/Ver menos -->
-    <AboutUsSection client:load />
+      <div class="mb-16">
+        <h1 class="text-3xl md:text-4xl font-bold text-white uppercase tracking-wide mb-3">
+          Sobre mí
+        </h1>
+        <div class="w-12 h-px bg-white/40"></div>
+      </div>
 
-    <!-- Section: Mi Filosofía Visual -->
-    <PhilosophySection />
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
 
-    <!-- Section: Mis Valores -->
-    <ValuesSection />
+        {/* Imagen */}
+        <div class="border border-white/15 p-3 pb-8 bg-black shadow-2xl max-w-sm">
+          <img
+            src={imageUrl}
+            alt="Photographic Images — fotógrafo profesional en San José"
+            class="w-full aspect-4/5 object-cover"
+            loading="eager"
+            width="400"
+            height="500"
+          />
+        </div>
 
-    <!-- Section: CTA Reserva -->
-    <CTASection />
-  </main>
+        {/* Bio */}
+        <div class="space-y-6">
+          {paragraphs.map(p => (
+            <p class="text-white/70 leading-relaxed text-base md:text-[1.05rem]">{p}</p>
+          ))}
+
+          <div class="pt-4 space-y-3 border-t border-white/10">
+            <div class="flex items-center gap-3 text-sm">
+              <span class="text-white/35 uppercase tracking-wider text-xs">WhatsApp</span>
+              <a href="https://wa.me/50685546933" target="_blank" rel="noopener noreferrer"
+                 class="text-white hover:text-white/70 transition-colors">
+                +506 8554-6933
+              </a>
+            </div>
+            <div class="flex items-center gap-3 text-sm">
+              <span class="text-white/35 uppercase tracking-wider text-xs">Email</span>
+              <a href="mailto:isaiasdg14@hotmail.com"
+                 class="text-white hover:text-white/70 transition-colors">
+                isaiasdg14@hotmail.com
+              </a>
+            </div>
+            <div class="flex items-center gap-3 text-sm">
+              <span class="text-white/35 uppercase tracking-wider text-xs">Zona</span>
+              <span class="text-white">San José · Gran Área Metropolitana</span>
+            </div>
+          </div>
+
+          <div class="pt-6">
+            <a
+              href="/#contacto"
+              class="inline-flex items-center gap-2 px-6 py-3 bg-white text-black font-semibold text-sm uppercase tracking-wider transition-all duration-300 hover:bg-white/90 hover:scale-105 min-h-11"
+            >
+              Trabajemos juntos
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
 </Layout>
