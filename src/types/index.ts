@@ -1,6 +1,11 @@
 // Tipos que replican exactamente la forma de las tablas futuras en Supabase.
 // Cuando se migre al admin, cambiar el import de src/data/ a la query de Supabase.
 
+export interface ServiceFaq {
+  q: string
+  a: string
+}
+
 export interface Service {
   id: string
   title: string
@@ -9,6 +14,7 @@ export interface Service {
   detailed_description: string | null
   image: string
   features: string[]
+  faqs?: ServiceFaq[]
   is_active: boolean
   order: number
 }

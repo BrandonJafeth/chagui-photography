@@ -35,6 +35,24 @@ export const services: Service[] = [
       'Cobertura en todo Costa Rica — bodas de destino bienvenidas',
       'Entrega puntual con fechas comprometidas',
     ],
+    faqs: [
+      {
+        q: '¿Cubre bodas fuera de San José?',
+        a: 'Sí, fotografío bodas en toda Costa Rica: Guanacaste, Manuel Antonio, Monteverde, el Caribe y cualquier destino. El traslado se coordina según la locación de la boda.',
+      },
+      {
+        q: '¿Con cuánto tiempo de anticipación hay que reservar?',
+        a: 'Lo ideal es reservar con 3 a 6 meses de anticipación, especialmente en temporada alta (diciembre–febrero y julio–agosto). Para fechas muy solicitadas, cuanto antes mejor.',
+      },
+      {
+        q: '¿Qué incluye la cobertura de la boda?',
+        a: 'Fotografía desde los preparativos de los novios hasta el cierre de la recepción, edición profesional completa y galería digital privada en alta resolución. Álbumes físicos disponibles como complemento.',
+      },
+      {
+        q: '¿Hacen bodas de destino en playa o montaña?',
+        a: 'Sí. Bodas en playa, haciendas, jardines, hoteles boutique o cualquier espacio que elijan los novios, en cualquier provincia del país.',
+      },
+    ],
     is_active: true,
     order: 1,
   },
@@ -57,6 +75,24 @@ export const services: Service[] = [
       'Selección y edición completa de imágenes',
       'Entrega en alta resolución',
       'Quinceaños y graduaciones incluidas',
+    ],
+    faqs: [
+      {
+        q: '¿Dónde se realizan las sesiones de retrato?',
+        a: 'En cualquier locación de Costa Rica — parques, playas, zonas urbanas, estudios o interiores. Me desplazo al lugar que vos elijas, sin importar la provincia.',
+      },
+      {
+        q: '¿Cuánto dura una sesión de retratos?',
+        a: 'Entre 1 y 2 horas según el paquete. Es tiempo suficiente para que te relajes y obtengamos imágenes variadas, naturales y con diferentes ambientes.',
+      },
+      {
+        q: '¿Las fotos sirven para LinkedIn o redes sociales?',
+        a: 'Sí. Las sesiones incluyen orientación para perfil profesional y entrega en formatos optimizados para LinkedIn, Instagram y otras plataformas digitales.',
+      },
+      {
+        q: '¿Hacen sesiones de maternidad, quinceaños y graduaciones?',
+        a: 'Sí. Cubrimos sesiones de maternidad, quinceaños, graduaciones y celebraciones personales en cualquier parte de Costa Rica, en la locación que prefieras.',
+      },
     ],
     is_active: true,
     order: 2,
@@ -81,6 +117,24 @@ export const services: Service[] = [
       'Entrega rápida de galería digital',
       'Disponibilidad fines de semana y feriados',
     ],
+    faqs: [
+      {
+        q: '¿Fotografían eventos fuera de San José?',
+        a: 'Sí, viajo a cualquier provincia de Costa Rica — Guanacaste, Puntarenas, Limón, Alajuela, Heredia y más — para quinceaños, graduaciones, cumpleaños y eventos corporativos.',
+      },
+      {
+        q: '¿Cubren graduaciones universitarias y de colegio?',
+        a: 'Sí. Fotografiamos ceremonias de graduación universitarias y de colegio en toda Costa Rica, incluyendo la sesión con familia y los momentos espontáneos del evento.',
+      },
+      {
+        q: '¿Con cuánto tiempo de anticipación hay que contratar?',
+        a: 'Para quinceaños y graduaciones, lo ideal es reservar con 1 a 3 meses de anticipación para asegurar disponibilidad en la fecha del evento.',
+      },
+      {
+        q: '¿Fotografían eventos corporativos y de empresa?',
+        a: 'Sí. Cubrimos lanzamientos, conferencias, actividades de team building y eventos de empresa con enfoque profesional adaptado al protocolo de cada organización.',
+      },
+    ],
     is_active: true,
     order: 3,
   },
@@ -103,6 +157,24 @@ export const services: Service[] = [
       'Cobertura de la celebración o almuerzo posterior',
       'Disponible en toda Costa Rica — viajo a su parroquia',
       'Entrega de galería digital completa en alta resolución',
+    ],
+    faqs: [
+      {
+        q: '¿Cubren bautizos y comuniones fuera de San José?',
+        a: 'Sí, viajo a cualquier parroquia o locación en Costa Rica para fotografiar bautizos, primeras comuniones y confirmaciones, sin importar la provincia.',
+      },
+      {
+        q: '¿Interrumpen la ceremonia religiosa?',
+        a: 'No. Trabajo con total discreción durante la ceremonia — sin flash invasivo ni interrupciones. La familia raramente nota mi presencia, lo que permite capturar momentos completamente naturales.',
+      },
+      {
+        q: '¿Cubren la celebración después del sacramento?',
+        a: 'Sí. La cobertura puede incluir el almuerzo o reunión familiar posterior al sacramento, capturando los momentos informales y espontáneos que muchas veces son los más queridos del álbum.',
+      },
+      {
+        q: '¿Cuánto dura la cobertura de un bautizo o primera comunión?',
+        a: 'Típicamente entre 3 y 5 horas: preparativos, ceremonia en la iglesia y celebración posterior. La cobertura se adapta a las necesidades y duración de cada familia y evento.',
+      },
     ],
     is_active: true,
     order: 4,

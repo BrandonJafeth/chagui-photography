@@ -137,6 +137,37 @@ const paragraphs = (service.detailed_description ?? service.description)
     </div>
   </section>
 
+  {/* ── FAQ ── */}
+  {service.faqs && service.faqs.length > 0 && (
+    <section class="py-16 md:py-20 bg-[#070707] border-t border-white/8">
+      <div class="max-w-6xl mx-auto px-6 md:px-4">
+
+        <div class="mb-12">
+          <p class="text-[0.6rem] uppercase tracking-[0.35em] text-white/50 mb-3">Preguntas frecuentes</p>
+          <h2
+            class="text-2xl md:text-3xl text-white"
+            style="font-family: 'Playfair Display', Georgia, serif; font-style: italic;"
+          >
+            Preguntas sobre {service.title}
+          </h2>
+          <div class="w-12 h-px bg-white/40 mt-4"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+          {service.faqs.map((faq: { q: string; a: string }) => (
+            <div class="border-l border-white/15 pl-6">
+              <h3 class="text-white text-base font-medium mb-3 leading-snug">
+                {faq.q}
+              </h3>
+              <p class="text-white/65 text-sm leading-relaxed">{faq.a}</p>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+  )}
+
   {/* ── Packages ── */}
   {hasPackages && (
     <div class="bg-[#070707] border-t border-white/8">
