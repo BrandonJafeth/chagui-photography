@@ -134,23 +134,9 @@ export async function getSiteContent(): Promise<SiteContent[]> {
   const hit = fromCache<SiteContent[]>('site_content')
   if (hit) return hit
 
-  if (!supabase) {
-    const { siteContent } = await import('@/data/site-content')
-    toCache('site_content', siteContent)
-    return siteContent
-  }
-
-  const { data, error } = await supabase.from('site_content').select('*')
-
-  if (error) {
-    console.error('[db] getSiteContent:', error.message)
-    const { siteContent } = await import('@/data/site-content')
-    return siteContent
-  }
-
-  const result = data ?? []
-  toCache('site_content', result)
-  return result
+  const { siteContent } = await import('@/data/site-content')
+  toCache('site_content', siteContent)
+  return siteContent
 }
 
 /** Get a single content value by key. */
@@ -165,26 +151,8 @@ export async function getTestimonials(): Promise<Testimonial[]> {
   const hit = fromCache<Testimonial[]>('testimonials')
   if (hit) return hit
 
-  if (!supabase) {
-    const { testimonials } = await import('@/data/testimonials')
-    const result = testimonials.filter(t => t.is_visible).sort((a, b) => a.order - b.order)
-    toCache('testimonials', result)
-    return result
-  }
-
-  const { data, error } = await supabase
-    .from('testimonials')
-    .select('*')
-    .eq('is_visible', true)
-    .order('order')
-
-  if (error) {
-    console.error('[db] getTestimonials:', error.message)
-    const { testimonials } = await import('@/data/testimonials')
-    return testimonials.filter(t => t.is_visible).sort((a, b) => a.order - b.order)
-  }
-
-  const result = data ?? []
+  const { testimonials } = await import('@/data/testimonials')
+  const result = testimonials.filter(t => t.is_visible).sort((a, b) => a.order - b.order)
   toCache('testimonials', result)
   return result
 }
