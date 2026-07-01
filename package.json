@@ -21,6 +21,9 @@
     "react-dom": "^19.2.1",
     "tailwindcss": "^4.1.17"
   },
+  "devDependencies": {
+    "wrangler": "^4.105.0"
+  },
   "pnpm": {
     "onlyBuiltDependencies": [
       "workerd"
