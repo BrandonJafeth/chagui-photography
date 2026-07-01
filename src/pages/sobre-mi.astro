@@ -1,14 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { getContent } from "@/data/site-content";
-import { getServices } from "@/lib/db";
-import { testimonials } from "@/data/testimonials";
+import { getContent, getServices, getTestimonials } from "@/lib/db";
 
-const aboutText      = getContent('about_text')
-const imageUrl       = getContent('about_image_url')
+const aboutText      = await getContent('about_text')
+const imageUrl        = await getContent('about_image_url')
 const paragraphs     = aboutText.split('\n\n').filter(Boolean)
 const activeServices = await getServices()
-const featuredTestimonial = testimonials.find(t => t.is_visible) ?? testimonials[0]
+const testimonials    = await getTestimonials()
+const featuredTestimonial = testimonials[0]
 ---
 
 <Layout

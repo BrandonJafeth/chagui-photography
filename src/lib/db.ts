@@ -1,5 +1,5 @@
 import { supabase } from './supabase'
-import type { Service, Package } from '@/types/index'
+import type { Service, Package, SiteContent, Testimonial } from '@/types/index'
 
 // ── dev cache (no-op cost in prod: build runs each fn once anyway) ────────────
 const _cache = new Map<string, { data: unknown; ts: number }>()
@@ -125,5 +125,66 @@ export async function getPackages(serviceId?: string): Promise<Package[]> {
 
   const result = data ?? []
   toCache(cacheKey, result)
+  return result
+}
+
+// ── site content ──────────────────────────────────────────────────────────────
+
+export async function getSiteContent(): Promise<SiteContent[]> {
+  const hit = fromCache<SiteContent[]>('site_content')
+  if (hit) return hit
+
+  if (!supabase) {
+    const { siteContent } = await import('@/data/site-content')
+    toCache('site_content', siteContent)
+    return siteContent
+  }
+
+  const { data, error } = await supabase.from('site_content').select('*')
+
+  if (error) {
+    console.error('[db] getSiteContent:', error.message)
+    const { siteContent } = await import('@/data/site-content')
+    return siteContent
+  }
+
+  const result = data ?? []
+  toCache('site_content', result)
+  return result
+}
+
+/** Get a single content value by key. */
+export async function getContent(key: string): Promise<string> {
+  const all = await getSiteContent()
+  return all.find(c => c.key === key)?.value ?? ''
+}
+
+// ── testimonials ──────────────────────────────────────────────────────────────
+
+export async function getTestimonials(): Promise<Testimonial[]> {
+  const hit = fromCache<Testimonial[]>('testimonials')
+  if (hit) return hit
+
+  if (!supabase) {
+    const { testimonials } = await import('@/data/testimonials')
+    const result = testimonials.filter(t => t.is_visible).sort((a, b) => a.order - b.order)
+    toCache('testimonials', result)
+    return result
+  }
+
+  const { data, error } = await supabase
+    .from('testimonials')
+    .select('*')
+    .eq('is_visible', true)
+    .order('order')
+
+  if (error) {
+    console.error('[db] getTestimonials:', error.message)
+    const { testimonials } = await import('@/data/testimonials')
+    return testimonials.filter(t => t.is_visible).sort((a, b) => a.order - b.order)
+  }
+
+  const result = data ?? []
+  toCache('testimonials', result)
   return result
 }

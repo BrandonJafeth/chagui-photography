@@ -1,8 +1,7 @@
 ---
-// TODO: migrar a Supabase — tabla testimonials
-import { testimonials } from '@/data/testimonials'
+import { getTestimonials } from '@/lib/db'
 
-const visible = testimonials.filter(t => t.is_visible).sort((a, b) => a.order - b.order)
+const visible = await getTestimonials()
 ---
 
 {visible.length > 0 && (

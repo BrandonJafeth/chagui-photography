@@ -1,17 +1,14 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Packages from "@/components/Packages.astro";
-import { getServices, getPackages } from '@/lib/db'
+import { getServiceBySlug, getPackages } from '@/lib/db'
 
-export async function getStaticPaths() {
-  const services = await getServices()
-  return services.map(service => ({
-    params: { slug: service.slug },
-    props:  { service },
-  }))
+const { slug } = Astro.params
+const service = await getServiceBySlug(slug!)
+
+if (!service) {
+  return Astro.redirect('/servicios/')
 }
-
-const { service } = Astro.props
 
 // Universal packages (service_id null) + any specific to this service
 const associatedPkgs = await getPackages(service.id)
