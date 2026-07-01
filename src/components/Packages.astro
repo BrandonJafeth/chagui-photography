@@ -9,6 +9,11 @@ interface Props {
 const { preview = false, showHeader = true, serviceId } = Astro.props
 
 const pkgs = await getPackages(serviceId)
+
+// Group into rows of 3 — only full rows stretch edge-to-edge; a trailing
+// row of 1–2 keeps normal card width and centers instead of stretching.
+const rows: (typeof pkgs)[] = []
+for (let i = 0; i < pkgs.length; i += 3) rows.push(pkgs.slice(i, i + 3))
 ---
 
 <section id="paquetes" class:list={['bg-[#070707]', showHeader ? 'py-16 md:py-24' : 'pt-10 md:pt-14 pb-16 md:pb-24']}>
@@ -34,88 +39,97 @@ const pkgs = await getPackages(serviceId)
       </div>
     )}
 
-    <div class:list={[
-      'grid gap-px bg-white/8',
-      pkgs.length === 1 ? 'grid-cols-1 max-w-sm' :
-      pkgs.length >= 3 ? 'grid-cols-1 md:grid-cols-3' :
-                         'grid-cols-1 md:grid-cols-2',
-    ]}>
-      {pkgs.map((pkg) => {
-        const isFeatured = pkg.is_featured === true
+    <div class="flex flex-col gap-px bg-white/8">
+      {rows.map((row) => {
+        const isFullRow = row.length === 3
         return (
           <div
             class:list={[
-              'relative flex flex-col px-6 py-8 md:px-8 md:py-10 overflow-hidden transition-all duration-500 group pkg-card',
-              isFeatured ? 'pkg-featured' : 'bg-[#070707] pkg-plain',
+              'flex flex-col md:flex-row gap-px',
+              isFullRow ? 'bg-white/8' : 'bg-[#070707] md:justify-center md:gap-4',
             ]}
-            style={isFeatured
-              ? 'background: radial-gradient(ellipse 150% 55% at 50% -5%, rgba(255,255,255,0.07) 0%, transparent 65%), #0a0a0a;'
-              : undefined}
           >
+            {row.map((pkg) => {
+              const isFeatured = pkg.is_featured === true
+              return (
+                <div
+                  class:list={[
+                    'relative flex flex-col px-6 py-8 md:px-8 md:py-10 overflow-hidden transition-all duration-500 group pkg-card',
+                    'w-full md:basis-80 md:min-w-72',
+                    isFullRow ? 'md:grow' : 'md:grow-0 md:shrink-0',
+                    isFeatured ? 'pkg-featured' : 'bg-[#070707] pkg-plain',
+                  ]}
+                  style={isFeatured
+                    ? 'background: radial-gradient(ellipse 150% 55% at 50% -5%, rgba(255,255,255,0.07) 0%, transparent 65%), #0a0a0a;'
+                    : undefined}
+                >
 
-            {/* Left border reveal — editorial accent */}
-            <div class="pkg-left-bar" aria-hidden="true" />
+                  {/* Left border reveal — editorial accent */}
+                  <div class="pkg-left-bar" aria-hidden="true" />
 
-            {/* Top accent line */}
-            <div
-              class:list={['pkg-accent-line w-full h-px mb-6 md:mb-10 transition-colors duration-500', isFeatured ? 'bg-white/50' : 'bg-white/12']}
-              aria-hidden="true"
-            />
+                  {/* Top accent line */}
+                  <div
+                    class:list={['pkg-accent-line w-full h-px mb-6 md:mb-10 transition-colors duration-500', isFeatured ? 'bg-white/50' : 'bg-white/12']}
+                    aria-hidden="true"
+                  />
 
-            <div class="flex flex-col flex-1">
+                  <div class="flex flex-col flex-1">
 
-              <h4
-                class:list={[
-                  'leading-tight mb-3',
-                  isFeatured ? 'text-3xl text-white' : 'text-2xl text-white/85',
-                ]}
-              >
-                {pkg.name}
-              </h4>
-
-              <p
-                class:list={[
-                  'text-sm mb-8 leading-relaxed',
-                  isFeatured ? 'text-white/70' : 'text-white/60',
-                ]}
-              >
-                {pkg.description}
-              </p>
-
-              <ul class="space-y-3 mb-10 flex-1">
-                {pkg.includes.map(item => (
-                  <li class="flex items-start gap-3 text-sm">
-                    <svg
-                      class:list={['w-3.5 h-3.5 mt-0.5 shrink-0', isFeatured ? 'text-white/50' : 'text-white/25']}
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      aria-hidden="true"
+                    <h4
+                      class:list={[
+                        'leading-tight mb-3',
+                        isFeatured ? 'text-3xl text-white' : 'text-2xl text-white/85',
+                      ]}
                     >
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span class:list={[isFeatured ? 'text-white/80' : 'text-white/55']}>
-                      {item}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+                      {pkg.name}
+                    </h4>
 
-              <a
-                href={`https://wa.me/50685546933?text=${encodeURIComponent(`Hola Isaías, me interesa el paquete *${pkg.name}*.`)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                class:list={[
-                  'text-center px-5 py-3 text-sm uppercase tracking-wider font-semibold transition-all duration-300 min-h-11 flex items-center justify-center focus-visible:outline-2 focus-visible:outline-white',
-                  isFeatured
-                    ? 'bg-white text-black hover:bg-white/90'
-                    : 'border border-white/20 text-white/75 hover:border-white/50 hover:text-white',
-                ]}
-              >
-                Consultar
-              </a>
+                    <p
+                      class:list={[
+                        'text-sm mb-8 leading-relaxed',
+                        isFeatured ? 'text-white/70' : 'text-white/60',
+                      ]}
+                    >
+                      {pkg.description}
+                    </p>
 
-            </div>
+                    <ul class="space-y-3 mb-10 flex-1">
+                      {pkg.includes.map(item => (
+                        <li class="flex items-start gap-3 text-sm">
+                          <svg
+                            class:list={['w-3.5 h-3.5 mt-0.5 shrink-0', isFeatured ? 'text-white/50' : 'text-white/25']}
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            aria-hidden="true"
+                          >
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                          </svg>
+                          <span class:list={[isFeatured ? 'text-white/80' : 'text-white/55']}>
+                            {item}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <a
+                      href={`https://wa.me/50685546933?text=${encodeURIComponent(`Hola Isaías, me interesa el paquete *${pkg.name}*.`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class:list={[
+                        'text-center px-5 py-3 text-sm uppercase tracking-wider font-semibold transition-all duration-300 min-h-11 flex items-center justify-center focus-visible:outline-2 focus-visible:outline-white',
+                        isFeatured
+                          ? 'bg-white text-black hover:bg-white/90'
+                          : 'border border-white/20 text-white/75 hover:border-white/50 hover:text-white',
+                      ]}
+                    >
+                      Consultar
+                    </a>
+
+                  </div>
+                </div>
+              )
+            })}
           </div>
         )
       })}
