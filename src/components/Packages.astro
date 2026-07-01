@@ -4,10 +4,11 @@ import { getPackages } from '@/lib/db'
 interface Props {
   preview?: boolean
   showHeader?: boolean
+  serviceId?: string
 }
-const { preview = false, showHeader = true } = Astro.props
+const { preview = false, showHeader = true, serviceId } = Astro.props
 
-const pkgs = await getPackages()
+const pkgs = await getPackages(serviceId)
 ---
 
 <section id="paquetes" class:list={['bg-[#070707]', showHeader ? 'py-16 md:py-24' : 'pt-10 md:pt-14 pb-16 md:pb-24']}>
