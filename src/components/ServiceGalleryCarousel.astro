@@ -119,7 +119,7 @@ const pageSize = Math.ceil(count / totalPages)
     >
       <button
         type="button"
-        class="lightbox-close absolute top-4 right-4 md:top-6 md:right-6 flex items-center justify-center w-11 h-11 border border-white/20 bg-black/50 text-white/70 hover:text-white hover:border-white transition-all duration-300 focus-visible:outline-2 focus-visible:outline-white"
+        class="lightbox-close absolute top-4 right-4 md:top-6 md:right-6 flex items-center justify-center w-11 h-11 border border-white/30 bg-black/70 backdrop-blur-sm text-white/80 hover:text-white hover:border-white transition-all duration-300 focus-visible:outline-2 focus-visible:outline-white"
         aria-label="Cerrar"
       >
         <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -131,7 +131,7 @@ const pageSize = Math.ceil(count / totalPages)
 
       <button
         type="button"
-        class="lightbox-prev absolute left-2 md:left-6 top-1/2 -translate-y-1/2 flex items-center justify-center w-11 h-11 md:w-12 md:h-12 border border-white/20 bg-black/50 text-white/70 hover:text-white hover:border-white transition-all duration-300 focus-visible:outline-2 focus-visible:outline-white"
+        class="lightbox-prev absolute left-2 md:left-6 top-1/2 -translate-y-1/2 flex items-center justify-center w-11 h-11 md:w-12 md:h-12 border border-white/30 bg-black/70 backdrop-blur-sm text-white/80 hover:text-white hover:border-white transition-all duration-300 focus-visible:outline-2 focus-visible:outline-white"
         aria-label="Imagen anterior"
       >
         <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -149,7 +149,7 @@ const pageSize = Math.ceil(count / totalPages)
 
       <button
         type="button"
-        class="lightbox-next absolute right-2 md:right-6 top-1/2 -translate-y-1/2 flex items-center justify-center w-11 h-11 md:w-12 md:h-12 border border-white/20 bg-black/50 text-white/70 hover:text-white hover:border-white transition-all duration-300 focus-visible:outline-2 focus-visible:outline-white"
+        class="lightbox-next absolute right-2 md:right-6 top-1/2 -translate-y-1/2 flex items-center justify-center w-11 h-11 md:w-12 md:h-12 border border-white/30 bg-black/70 backdrop-blur-sm text-white/80 hover:text-white hover:border-white transition-all duration-300 focus-visible:outline-2 focus-visible:outline-white"
         aria-label="Siguiente imagen"
       >
         <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -163,6 +163,9 @@ const pageSize = Math.ceil(count / totalPages)
 <script>
   function initGallery() {
   document.querySelectorAll<HTMLElement>('.gallery-grid').forEach((root) => {
+    if (root.dataset.galleryInit === 'true') return
+    root.dataset.galleryInit = 'true'
+
     const items = Array.from(root.querySelectorAll<HTMLButtonElement>('.gallery-item'))
 
     // Paginación del grid — el lightbox sigue navegando por todas las fotos
