@@ -1,6 +1,6 @@
 // TODO: migrar a Supabase — tabla services
 //
-// SCHEMA RECOMENDADO (services ↔ packages):
+// SCHEMA RECOMENDADOs (services ↔ packages):
 //   1:many con universal — NO many:many (overkill para este negocio)
 //   packages.service_id = null   → universal (aparece en todos los servicios y página de paquetes)
 //   packages.service_id = UUID   → específico (solo en la página de ese servicio)
