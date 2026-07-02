@@ -17,10 +17,15 @@ const containerClass = {
   pair: 'grid grid-cols-2 gap-3 md:gap-4 max-w-2xl mx-auto',
   mosaic: 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 grid-flow-row-dense auto-rows-[9rem] sm:auto-rows-[11rem] lg:auto-rows-[13rem] gap-2.5 md:gap-3.5',
 }[layout]
+
+// 12 es múltiplo de 2/3/4 — la última página cierra en fila completa sin
+// importar cuántas columnas tenga el grid en el breakpoint actual.
+const pageSize = 12
+const totalPages = Math.max(1, Math.ceil(count / pageSize))
 ---
 
 {count > 0 && (
-  <div class="gallery-grid">
+  <div class="gallery-grid" data-page-size={pageSize} data-total-pages={totalPages}>
     <div class={containerClass}>
       {images.map((imgData, index) => {
         const isFeature = layout === 'mosaic' && count > 4 && index % 5 === 2
@@ -35,6 +40,7 @@ const containerClass = {
             data-index={index}
             data-full={cldOptimize(imgData.image_url, 1800, 1350)}
             data-caption={imgData.caption ?? ''}
+            hidden={totalPages > 1 && Math.floor(index / pageSize) !== 0}
             aria-label={imgData.caption ? `Ver imagen: ${imgData.caption}` : 'Ver imagen en grande'}
           >
             <span class="absolute top-2 left-2 md:top-3 md:left-3 z-10 font-mono text-[10px] tracking-widest text-white/50">
@@ -66,6 +72,37 @@ const containerClass = {
         )
       })}
     </div>
+
+    {totalPages > 1 && (
+      <div class="gallery-pagination flex items-center justify-between gap-6 border-t border-white/8 pt-6 mt-8 md:mt-10">
+        <button
+          type="button"
+          class="gallery-prev group flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.15em] text-white/50 transition-colors duration-200 hover:text-white disabled:pointer-events-none disabled:opacity-30"
+          disabled
+          aria-label="Página anterior"
+        >
+          <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+          </svg>
+          Anterior
+        </button>
+
+        <p class="font-mono text-[11px] tabular-nums tracking-[0.2em] text-white/35 select-none">
+          <span class="gallery-page-current text-white/80">01</span> — {String(totalPages).padStart(2, '0')}
+        </p>
+
+        <button
+          type="button"
+          class="gallery-next group flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.15em] text-white/50 transition-colors duration-200 hover:text-white disabled:pointer-events-none disabled:opacity-30"
+          aria-label="Página siguiente"
+        >
+          Siguiente
+          <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </button>
+      </div>
+    )}
 
     {/* ── Lightbox ── */}
     <div
@@ -122,6 +159,43 @@ const containerClass = {
 <script>
   document.querySelectorAll<HTMLElement>('.gallery-grid').forEach((root) => {
     const items = Array.from(root.querySelectorAll<HTMLButtonElement>('.gallery-item'))
+
+    // Paginación del grid — el lightbox sigue navegando por todas las fotos
+    // sin importar la página visible, solo se ocultan/muestran los tiles.
+    const pagination = root.querySelector<HTMLElement>('.gallery-pagination')
+    const totalPages = Number(root.dataset.totalPages ?? 1)
+    const pageSize = Number(root.dataset.pageSize ?? (items.length || 1))
+
+    if (pagination && totalPages > 1) {
+      const prevBtn = pagination.querySelector<HTMLButtonElement>('.gallery-prev')!
+      const nextBtn = pagination.querySelector<HTMLButtonElement>('.gallery-next')!
+      const currentLabel = pagination.querySelector<HTMLElement>('.gallery-page-current')!
+      let currentPage = 0
+
+      const renderPage = () => {
+        items.forEach((item, i) => {
+          item.hidden = Math.floor(i / pageSize) !== currentPage
+        })
+        currentLabel.textContent = String(currentPage + 1).padStart(2, '0')
+        prevBtn.disabled = currentPage === 0
+        nextBtn.disabled = currentPage === totalPages - 1
+      }
+
+      prevBtn.addEventListener('click', () => {
+        if (currentPage === 0) return
+        currentPage -= 1
+        renderPage()
+        pagination.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+      })
+
+      nextBtn.addEventListener('click', () => {
+        if (currentPage === totalPages - 1) return
+        currentPage += 1
+        renderPage()
+        pagination.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+      })
+    }
+
     const lightbox = root.querySelector<HTMLElement>('.lightbox')
     if (!lightbox || items.length === 0) return
 
