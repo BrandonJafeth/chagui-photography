@@ -15,11 +15,11 @@ interface Props {
 const {
   title,
   description = "Fotógrafo profesional en San José con cobertura en todo Costa Rica. Bodas, retratos, eventos, bautizos y sacramentos. Isaías Díaz — Photographic Chagui.",
-  image = "/favicon.svg",
+  image = "https://res.cloudinary.com/daqragn9m/image/upload/w_1200,h_630,c_fill,g_face,q_auto/v1782781402/libreria-chagui-sobre-nosotros_euzjwr.jpg",
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const socialImageURL = new URL(image, Astro.url);
+const socialImageURL = image.startsWith("http") ? new URL(image) : new URL(image, Astro.url);
 
 const schemaLD = {
   "@context": "https://schema.org",
@@ -59,7 +59,7 @@ const schemaLD = {
     "ratingValue": "5",
     "bestRating": "5",
     "worstRating": "1",
-    "ratingCount": "20"
+    "ratingCount": "4"
   }
 };
 ---
@@ -111,9 +111,17 @@ const schemaLD = {
     <link rel="preconnect" href="https://res.cloudinary.com" />
     <link rel="preconnect" href="https://images.unsplash.com" />
     <link
-      rel="stylesheet"
+      rel="preload"
+      as="style"
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Work+Sans:wght@300;400;500;600;700&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Work+Sans:wght@300;400;500;600;700&display=swap"
+      />
+    </noscript>
 
     <ClientRouter />
   </head>
