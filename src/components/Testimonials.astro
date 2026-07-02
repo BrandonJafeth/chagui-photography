@@ -41,7 +41,7 @@ const visible = await getTestimonials()
             >&ldquo;</span>
 
             {/* Stars */}
-            <div class="flex gap-1 mb-6" aria-label={`${t.rating} de 5 estrellas`}>
+            <div class="flex gap-1 mb-6" role="img" aria-label={`${t.rating} de 5 estrellas`}>
               {Array.from({ length: 5 }, (_, i) => (
                 <svg
                   class:list={['w-3.5 h-3.5', i < t.rating ? 'text-white/60' : 'text-white/15']}
