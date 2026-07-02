@@ -28,6 +28,7 @@ function mapService(row: any): Service {
     features:             row.features ?? [],
     is_active:            row.is_active,
     order:                row.order,
+    use_carousel:         row.use_carousel ?? false,
     faqs: ((row.service_faqs as any[]) ?? [])
       .filter(f => f.is_active !== false)
       .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))

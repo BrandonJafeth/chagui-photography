@@ -25,6 +25,7 @@ export interface Service {
   gallery?: ServiceGalleryImage[]
   is_active: boolean
   order: number
+  use_carousel: boolean
 }
 
 // TODO: migrar a Supabase — tabla packages

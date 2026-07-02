@@ -2,6 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import Packages from "@/components/Packages.astro";
 import ServiceGalleryCarousel from "@/components/ServiceGalleryCarousel.astro";
+import ServiceHeroCarousel from "@/components/ServiceHeroCarousel.astro";
 import { getServiceBySlug, getPackages } from '@/lib/db'
 import { cldOptimize } from '@/lib/cloudinary'
 
@@ -19,6 +20,9 @@ const hasPackages = associatedPkgs.length > 0
 const paragraphs = (service.detailed_description ?? service.description)
   .split('\n\n')
   .filter(Boolean)
+
+const hasGallery = !!service.gallery && service.gallery.length > 0
+const showHeroCarousel = service.use_carousel && hasGallery
 ---
 
 <Layout
@@ -30,16 +34,20 @@ const paragraphs = (service.detailed_description ?? service.description)
   {/* ── Hero ── */}
   <div class="svc-hero relative overflow-hidden bg-black">
 
-    {/* Background image */}
-    <img
-      src={cldOptimize(service.image, 1200, 700)}
-      alt={service.title}
-      class="absolute inset-0 w-full h-full object-cover"
-      loading="eager"
-      fetchpriority="high"
-      width="1200"
-      height="700"
-    />
+    {/* Background image / carrusel */}
+    {showHeroCarousel ? (
+      <ServiceHeroCarousel images={service.gallery!} alt={service.title} />
+    ) : (
+      <img
+        src={cldOptimize(service.image, 1200, 700)}
+        alt={service.title}
+        class="absolute inset-0 w-full h-full object-cover"
+        loading="eager"
+        fetchpriority="high"
+        width="1200"
+        height="700"
+      />
+    )}
 
     {/* Gradient overlays */}
     <div class="absolute inset-0 bg-linear-to-t from-black via-black/55 to-black/25" aria-hidden="true" />

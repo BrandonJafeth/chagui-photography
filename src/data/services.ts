@@ -55,6 +55,7 @@ export const services: Service[] = [
     ],
     is_active: true,
     order: 1,
+    use_carousel: false,
   },
   {
     id: '2',
@@ -96,6 +97,7 @@ export const services: Service[] = [
     ],
     is_active: true,
     order: 2,
+    use_carousel: false,
   },
   {
     id: '3',
@@ -137,6 +139,7 @@ export const services: Service[] = [
     ],
     is_active: true,
     order: 3,
+    use_carousel: false,
   },
   {
     id: '4',
@@ -178,5 +181,6 @@ export const services: Service[] = [
     ],
     is_active: true,
     order: 4,
+    use_carousel: false,
   },
 ]

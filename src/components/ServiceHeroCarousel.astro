@@ -1,0 +1,122 @@
+---
+import { cldOptimize } from '@/lib/cloudinary'
+import type { ServiceGalleryImage } from '@/types/index'
+
+interface Props {
+  images: ServiceGalleryImage[]
+  alt: string
+}
+
+const { images, alt } = Astro.props
+---
+
+<div
+  class="svc-hero-carousel absolute inset-0"
+  role="region"
+  aria-roledescription="carousel"
+  aria-label={`Galería de ${alt}`}
+>
+  {images.map((img, i) => (
+    <div class:list={['svc-hero-slide absolute inset-0', i === 0 ? 'active' : '']} aria-hidden={i !== 0}>
+      <img
+        src={cldOptimize(img.image_url, 1200, 700)}
+        alt={img.caption ?? alt}
+        class="svc-hero-img w-full h-full object-cover"
+        loading={i === 0 ? 'eager' : 'lazy'}
+        fetchpriority={i === 0 ? 'high' : undefined}
+        decoding="async"
+        width="1200"
+        height="700"
+      />
+    </div>
+  ))}
+
+  {images.length > 1 && (
+    <div
+      class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2"
+      role="tablist"
+      aria-label="Indicadores de imagen"
+    >
+      {images.map((_, i) => (
+        <button
+          type="button"
+          class:list={[
+            'svc-hero-dot w-6 h-[2px] transition-all duration-500 focus-visible:outline-2 focus-visible:outline-white',
+            i === 0 ? 'bg-white' : 'bg-white/30',
+          ]}
+          data-index={i}
+          role="tab"
+          aria-label={`Imagen ${i + 1}`}
+          aria-selected={i === 0}
+        />
+      ))}
+    </div>
+  )}
+</div>
+
+<style>
+  @keyframes svc-kenburns {
+    from { transform: scale(1.06); }
+    to   { transform: scale(1.0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .svc-hero-img { animation: none !important; }
+  }
+
+  .svc-hero-slide {
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out;
+  }
+  .svc-hero-slide.active {
+    opacity: 1;
+  }
+  .svc-hero-slide.active .svc-hero-img {
+    animation: svc-kenburns 7s ease-out forwards;
+  }
+</style>
+
+<script>
+  function initSvcHeroCarousel() {
+    document.querySelectorAll<HTMLElement>('.svc-hero-carousel').forEach((root) => {
+      const slides = Array.from(root.querySelectorAll<HTMLElement>('.svc-hero-slide'))
+      const dots = Array.from(root.querySelectorAll<HTMLButtonElement>('.svc-hero-dot'))
+      if (slides.length <= 1) return
+
+      let current = 0
+      let timer: ReturnType<typeof setInterval>
+
+      function goTo(index: number) {
+        slides[current].classList.remove('active')
+        dots[current]?.classList.replace('bg-white', 'bg-white/30')
+        dots[current]?.setAttribute('aria-selected', 'false')
+
+        current = index
+        slides[current].classList.add('active')
+        dots[current]?.classList.replace('bg-white/30', 'bg-white')
+        dots[current]?.setAttribute('aria-selected', 'true')
+      }
+
+      function next() {
+        goTo((current + 1) % slides.length)
+      }
+
+      function startTimer() {
+        timer = setInterval(next, 5000)
+      }
+
+      startTimer()
+
+      dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => {
+          clearInterval(timer)
+          goTo(i)
+          startTimer()
+        })
+      })
+    })
+  }
+
+  initSvcHeroCarousel()
+  document.addEventListener('astro:page-load', initSvcHeroCarousel)
+</script>
