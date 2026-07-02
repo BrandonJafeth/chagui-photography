@@ -1,10 +1,11 @@
 ---
 import { getContent } from '@/lib/db'
+import { cldOptimize } from '@/lib/cloudinary'
 
 const title     = await getContent('about_title')
 const subtitle  = await getContent('about_subtitle')
 const text      = await getContent('about_text')
-const imageUrl  = await getContent('about_image_url')
+const imageUrl  = cldOptimize(await getContent('about_image_url'), 400, 500)
 const imageAlt  = 'Photographic Chagui — fotógrafo profesional en San José, Costa Rica'
 
 const paragraphs = text.split('\n\n').filter(Boolean)

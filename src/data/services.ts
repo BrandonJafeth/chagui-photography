@@ -24,7 +24,7 @@ export const services: Service[] = [
     detailed_description:
       'La fotografía de bodas no es solo documentar un evento — es preservar la emoción de un día que no se repite. Trabajo con parejas en toda Costa Rica para crear imágenes auténticas que reflejan quiénes son: sin poses forzadas, sin momentos artificiales. Cada boda es una historia diferente, y mi labor es contarla con honestidad y sensibilidad.\n\nDesde la preparación de los novios hasta el último baile, estoy presente en cada momento. Cubro ceremonias religiosas y civiles en todo el país: San José, Alajuela, Cartago y Heredia en el Valle Central, bodas de destino en Guanacaste, Manuel Antonio, Monteverde, el Caribe costarricense y cualquier rincón del país donde quieran celebrar. Trabajo con luz natural siempre que es posible, aprovechando los paisajes únicos de Costa Rica para crear imágenes que hablan por sí solas.\n\nEntrego galerías digitales privadas con edición profesional completa, y ofrezco álbumes físicos de alta calidad para quienes desean un recuerdo tangible. Los tiempos de entrega son concretos y los respeto — porque sé que la espera de las fotos también es parte de la experiencia.\n\nSi estás buscando un fotógrafo de bodas en Costa Rica que entienda la importancia del momento y lo capture sin interrumpirlo, me encantaría conocer su historia.',
     image:
-      'https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&q=80',
+      'https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&q=80&auto=format&fit=crop',
     features: [
       'Cobertura desde la preparación hasta el baile final',
       'Fotografía de ceremonia religiosa o civil',
@@ -65,7 +65,7 @@ export const services: Service[] = [
     detailed_description:
       'Una sesión de retratos es mucho más que tomarse fotos — es un espacio para mostrarte tal como sos. Trabajo con personas, parejas y familias en locaciones al aire libre o interiores en cualquier parte de Costa Rica, creando imágenes naturales donde la personalidad de cada quien tiene espacio para aparecer.\n\nDirijo la sesión con calma: sugiero poses, aprovecho la luz del momento y creo un ambiente relajado para que no te sientas frente a una cámara, sino frente a alguien que te está escuchando. El resultado son imágenes que te van a gustar porque te reconocés en ellas — no porque parecen de catálogo.\n\nLas sesiones son ideales para personas que quieren fotos profesionales para LinkedIn o redes sociales, parejas que buscan un recuerdo auténtico, o familias que quieren documentar un momento de vida juntos. También hago sesiones de maternidad, quinceaños y graduaciones en locaciones especiales en todo el país — parques, playas, montañas, zonas urbanas o donde vos elijas: San José, Guanacaste, el Pacífico, el Caribe o cualquier provincia de Costa Rica.\n\nTodas las sesiones incluyen dirección completa, selección de las mejores imágenes y edición profesional. Entrega en alta resolución lista para imprimir o compartir.',
     image:
-      'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=1200&q=80',
+      'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=1200&q=80&auto=format&fit=crop',
     features: [
       'Sesiones individuales, de pareja o familiares',
       'Disponible en toda Costa Rica — viajo a su locación',
@@ -106,7 +106,7 @@ export const services: Service[] = [
     detailed_description:
       'Los eventos especiales ocurren una vez, y merecen ser documentados con la misma atención que una boda. Cubro quinceaños, graduaciones, cumpleaños, bautizos, primeras comuniones y eventos corporativos en todo Costa Rica — San José, Alajuela, Heredia, Cartago, Guanacaste, Puntarenas, Limón y más. Viajo al lugar de su evento sin importar la provincia. Mi enfoque es documental: capturo lo que ocurre de forma natural, sin interrumpir el flujo del evento.\n\nPara eventos sociales como quinceaños y graduaciones, trabajo de cerca con la familia para entender qué momentos son prioritarios: la entrada, el vals, los discursos, los reencuentros. En eventos corporativos, me adapto al protocolo de la empresa para obtener imágenes que comunican profesionalismo y presencia de marca sin entorpecer la dinámica del evento.\n\nOfrezco cobertura por horas para eventos cortos, o cobertura completa para eventos de día entero. La galería digital se entrega en un plazo corto, ideal para empresas que necesitan contenido rápido para sus redes o comunicaciones internas. Para eventos que requieren dos ángulos simultáneos, coordino con un segundo fotógrafo de confianza.\n\nSi buscás un fotógrafo de eventos en San José, Costa Rica que entienda tanto los momentos formales como los espontáneos, con experiencia en todo tipo de celebraciones, estoy disponible para tu fecha.',
     image:
-      'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=1200&q=80',
+      'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=1200&q=80&auto=format&fit=crop',
     features: [
       'Quinceaños, graduaciones y celebraciones familiares',
       'Eventos corporativos y de empresa',
@@ -147,7 +147,7 @@ export const services: Service[] = [
     detailed_description:
       'Los sacramentos son momentos únicos en la vida de una familia — celebraciones de fe que merecen ser recordadas con la misma emoción con que se viven. Fotografío bautizos, primeras comuniones y confirmaciones en toda Costa Rica, dentro y fuera de la iglesia, con un enfoque natural y respetuoso que no interrumpe la solemnidad del momento.\n\nTrabajo en silencio durante la ceremonia, moviéndome con discreción para capturar los gestos, las miradas y los abrazos que ocurren de forma espontánea: el momento del agua en el bautizo, la primera vez que reciben la hostia, el abrazo del padrino, las lágrimas del abuelo. Esos son los instantes que valen.\n\nDespués de la ceremonia, si la familia desea una sesión más posada — con el niño en su traje, con los padrinos o con la familia completa — coordinamos ese espacio sin apuro. También cubro las celebraciones posteriores: almuerzos, reuniones familiares y los momentos informales que muchas veces son los más queridos en el álbum.\n\nDisponible en toda Costa Rica para bautizos, primeras comuniones, confirmaciones y cualquier celebración religiosa o espiritual. Contactame para coordinar tu fecha.',
     image:
-      'https://images.unsplash.com/photo-1566516171511-1c411a59c8ba?w=1200&q=80',
+      'https://images.unsplash.com/photo-1566516171511-1c411a59c8ba?w=1200&q=80&auto=format&fit=crop',
     features: [
       'Bautizos de bebés y adultos — cualquier rito o confesión',
       'Primeras comuniones: ceremonia y celebración familiar',

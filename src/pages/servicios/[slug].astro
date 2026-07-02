@@ -2,6 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import Packages from "@/components/Packages.astro";
 import { getServiceBySlug, getPackages } from '@/lib/db'
+import { cldOptimize } from '@/lib/cloudinary'
 
 const { slug } = Astro.params
 const service = await getServiceBySlug(slug!)
@@ -30,7 +31,7 @@ const paragraphs = (service.detailed_description ?? service.description)
 
     {/* Background image */}
     <img
-      src={service.image}
+      src={cldOptimize(service.image, 1200, 700)}
       alt={service.title}
       class="absolute inset-0 w-full h-full object-cover"
       loading="eager"

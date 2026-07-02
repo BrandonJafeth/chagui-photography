@@ -1,5 +1,6 @@
 ---
 import { getServices } from '@/lib/db'
+import { cldOptimize } from '@/lib/cloudinary'
 
 const activeServices = (await getServices()).slice(0, 4)
 ---
@@ -36,7 +37,7 @@ const activeServices = (await getServices()).slice(0, 4)
           >
             {/* Image */}
             <img
-              src={service.image}
+              src={cldOptimize(service.image, 800, 500)}
               alt={service.title}
               class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 brightness-65 group-hover:brightness-80"
               loading="lazy"
