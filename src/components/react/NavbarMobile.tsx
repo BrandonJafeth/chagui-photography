@@ -44,7 +44,7 @@ export default function NavbarMobile({ navLinks, currentPath }: NavbarMobileProp
         </a>
         <button
           onClick={closeMenu}
-          className="w-10 h-10 flex items-center justify-center text-white/70 hover:text-white transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-white"
+          className="w-12 h-12 flex items-center justify-center text-white/70 hover:text-white transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-white"
           aria-label="Cerrar menú"
           type="button"
         >
@@ -118,7 +118,7 @@ export default function NavbarMobile({ navLinks, currentPath }: NavbarMobileProp
       {/* Hamburger button */}
       <button
         onClick={() => setIsOpen(prev => !prev)}
-        className="relative w-10 h-10 flex items-center justify-center text-white focus-visible:outline-2 focus-visible:outline-white"
+        className="relative w-12 h-12 flex items-center justify-center text-white focus-visible:outline-2 focus-visible:outline-white"
         aria-label={isOpen ? 'Cerrar menú' : 'Abrir menú'}
         aria-expanded={isOpen}
         type="button"
