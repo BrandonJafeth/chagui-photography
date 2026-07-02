@@ -1,0 +1,215 @@
+---
+import { cldOptimize } from '@/lib/cloudinary'
+import type { ServiceGalleryImage } from '@/types/index'
+
+interface Props {
+  images: ServiceGalleryImage[]
+}
+
+const { images } = Astro.props
+const count = images.length
+// Con pocas imágenes, un grid de 4 columnas deja un hueco enorme —
+// se usa una grilla angosta y centrada en su lugar.
+const isCompact = count <= 2
+---
+
+{count > 0 && (
+  <div class="gallery-grid">
+    <div
+      class={
+        isCompact
+          ? 'grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 max-w-2xl mx-auto'
+          : 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 grid-flow-row-dense auto-rows-[9rem] sm:auto-rows-[11rem] lg:auto-rows-[13rem] gap-2.5 md:gap-3.5'
+      }
+    >
+      {images.map((imgData, index) => {
+        const isFeature = !isCompact && count > 4 && index % 5 === 2
+        const dims = isCompact ? [700, 700] : isFeature ? [1000, 1000] : [640, 480]
+        return (
+          <button
+            type="button"
+            class={`gallery-item group relative overflow-hidden bg-white/5 ring-1 ring-inset ring-white/0 hover:ring-white/25 transition-shadow duration-300 focus-visible:outline-2 focus-visible:outline-white ${isCompact ? 'aspect-square' : `${isFeature ? 'lg:col-span-2 lg:row-span-2' : ''} aspect-square sm:aspect-auto`}`}
+            data-index={index}
+            data-full={cldOptimize(imgData.image_url, 1800, 1350)}
+            data-caption={imgData.caption ?? ''}
+            aria-label={imgData.caption ? `Ver imagen: ${imgData.caption}` : 'Ver imagen en grande'}
+          >
+            <span class="absolute top-2 left-2 md:top-3 md:left-3 z-10 font-mono text-[10px] tracking-widest text-white/50">
+              {String(index + 1).padStart(2, '0')}
+            </span>
+
+            <img
+              src={cldOptimize(imgData.image_url, dims[0], dims[1])}
+              alt={imgData.caption ?? 'Trabajo de la galería'}
+              loading="lazy"
+              decoding="async"
+              width={dims[0]}
+              height={dims[1]}
+              class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.06] transform-gpu"
+            />
+
+            <div class="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/85 via-black/10 to-transparent px-3 pb-2.5 pt-10 opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+              {imgData.caption && (
+                <p class="text-white/90 text-xs mb-1 wrap-break-word line-clamp-1">{imgData.caption}</p>
+              )}
+              <span class="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.25em] text-white/60">
+                Ver imagen
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16V4h12M4 4l16 16" />
+                </svg>
+              </span>
+            </div>
+          </button>
+        )
+      })}
+    </div>
+
+    {/* ── Lightbox ── */}
+    <div
+      id="gallery-lightbox"
+      class="lightbox fixed inset-0 z-50 hidden items-center justify-center px-4 opacity-0 transition-opacity duration-200"
+      style="background: radial-gradient(ellipse at center, rgba(10,10,10,0.97) 0%, rgba(0,0,0,0.99) 75%);"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Visor de imagen"
+    >
+      <button
+        type="button"
+        class="lightbox-close absolute top-4 right-4 md:top-6 md:right-6 flex items-center justify-center w-11 h-11 border border-white/20 bg-black/50 text-white/70 hover:text-white hover:border-white transition-all duration-300 focus-visible:outline-2 focus-visible:outline-white"
+        aria-label="Cerrar"
+      >
+        <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <p class="lightbox-counter absolute top-5 left-5 md:top-7 md:left-7 font-mono text-[11px] tracking-widest text-white/50"></p>
+
+      <button
+        type="button"
+        class="lightbox-prev absolute left-2 md:left-6 top-1/2 -translate-y-1/2 flex items-center justify-center w-11 h-11 md:w-12 md:h-12 border border-white/20 bg-black/50 text-white/70 hover:text-white hover:border-white transition-all duration-300 focus-visible:outline-2 focus-visible:outline-white"
+        aria-label="Imagen anterior"
+      >
+        <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+
+      <figure class="lightbox-figure max-w-5xl w-full flex flex-col items-center transition-all duration-300 opacity-0 scale-[0.97]">
+        <img
+          class="lightbox-image max-h-[74vh] w-auto max-w-full object-contain transition-opacity duration-200"
+          alt=""
+        />
+        <figcaption class="lightbox-caption mt-5 text-white/60 text-sm text-center max-w-xl empty:hidden" style="font-family: 'Playfair Display', Georgia, serif; font-style: italic;"></figcaption>
+      </figure>
+
+      <button
+        type="button"
+        class="lightbox-next absolute right-2 md:right-6 top-1/2 -translate-y-1/2 flex items-center justify-center w-11 h-11 md:w-12 md:h-12 border border-white/20 bg-black/50 text-white/70 hover:text-white hover:border-white transition-all duration-300 focus-visible:outline-2 focus-visible:outline-white"
+        aria-label="Siguiente imagen"
+      >
+        <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+  </div>
+)}
+
+<script>
+  document.querySelectorAll<HTMLElement>('.gallery-grid').forEach((root) => {
+    const items = Array.from(root.querySelectorAll<HTMLButtonElement>('.gallery-item'))
+    const lightbox = root.querySelector<HTMLElement>('.lightbox')
+    if (!lightbox || items.length === 0) return
+
+    const figure = lightbox.querySelector<HTMLElement>('.lightbox-figure')!
+    const img = lightbox.querySelector<HTMLImageElement>('.lightbox-image')!
+    const caption = lightbox.querySelector<HTMLElement>('.lightbox-caption')!
+    const counter = lightbox.querySelector<HTMLElement>('.lightbox-counter')!
+    const closeBtn = lightbox.querySelector<HTMLButtonElement>('.lightbox-close')!
+    const prevBtn = lightbox.querySelector<HTMLButtonElement>('.lightbox-prev')!
+    const nextBtn = lightbox.querySelector<HTMLButtonElement>('.lightbox-next')!
+
+    let currentIndex = 0
+    const preloaded = new Set<number>()
+
+    function preload(i: number) {
+      const idx = (i + items.length) % items.length
+      if (preloaded.has(idx)) return
+      preloaded.add(idx)
+      const preloadImg = new window.Image()
+      preloadImg.src = items[idx].dataset.full ?? ''
+    }
+
+    function render(index: number) {
+      const item = items[index]
+      img.src = item.dataset.full ?? ''
+      img.alt = item.dataset.caption || 'Trabajo de la galería'
+      caption.textContent = item.dataset.caption ?? ''
+      counter.textContent = `${String(index + 1).padStart(2, '0')} / ${String(items.length).padStart(2, '0')}`
+      preload(index + 1)
+      preload(index - 1)
+    }
+
+    function show(index: number) {
+      currentIndex = (index + items.length) % items.length
+      img.classList.add('opacity-0')
+      window.setTimeout(() => {
+        render(currentIndex)
+        img.classList.remove('opacity-0')
+      }, 120)
+    }
+
+    function open(index: number) {
+      currentIndex = (index + items.length) % items.length
+      render(currentIndex)
+      lightbox!.classList.remove('hidden')
+      lightbox!.classList.add('flex')
+      document.body.style.overflow = 'hidden'
+      requestAnimationFrame(() => {
+        lightbox!.classList.remove('opacity-0')
+        figure.classList.remove('opacity-0', 'scale-[0.97]')
+      })
+    }
+
+    function close() {
+      lightbox!.classList.add('opacity-0')
+      figure.classList.add('opacity-0', 'scale-[0.97]')
+      window.setTimeout(() => {
+        lightbox!.classList.add('hidden')
+        lightbox!.classList.remove('flex')
+      }, 200)
+      document.body.style.overflow = ''
+    }
+
+    items.forEach((item, i) => {
+      item.addEventListener('click', () => open(i))
+    })
+
+    closeBtn.addEventListener('click', close)
+    prevBtn.addEventListener('click', () => show(currentIndex - 1))
+    nextBtn.addEventListener('click', () => show(currentIndex + 1))
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) close()
+    })
+
+    document.addEventListener('keydown', (e) => {
+      if (lightbox!.classList.contains('hidden')) return
+      if (e.key === 'Escape') close()
+      if (e.key === 'ArrowLeft') show(currentIndex - 1)
+      if (e.key === 'ArrowRight') show(currentIndex + 1)
+    })
+
+    // Swipe táctil
+    let touchStartX = 0
+    lightbox.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].clientX
+    }, { passive: true })
+    lightbox.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - touchStartX
+      if (Math.abs(dx) < 40) return
+      show(currentIndex + (dx < 0 ? 1 : -1))
+    }, { passive: true })
+  })
+</script>

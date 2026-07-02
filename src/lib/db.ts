@@ -32,6 +32,9 @@ function mapService(row: any): Service {
       .filter(f => f.is_active !== false)
       .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
       .map(f => ({ q: f.question as string, a: f.answer as string })),
+    gallery: ((row.service_gallery as any[]) ?? [])
+      .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+      .map(g => ({ id: g.id as string, image_url: g.image_url as string, caption: (g.caption as string) ?? null, order: g.order as number })),
   }
 }
 
@@ -50,7 +53,7 @@ export async function getServices(): Promise<Service[]> {
 
   const { data, error } = await supabase
     .from('services')
-    .select('*, service_faqs(*)')
+    .select('*, service_faqs(*), service_gallery(*)')
     .eq('is_active', true)
     .order('order')
 
@@ -77,7 +80,7 @@ export async function getServiceBySlug(slug: string): Promise<Service | null> {
 
   const { data, error } = await supabase
     .from('services')
-    .select('*, service_faqs(*)')
+    .select('*, service_faqs(*), service_gallery(*)')
     .eq('slug', slug)
     .eq('is_active', true)
     .single()

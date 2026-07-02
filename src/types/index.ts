@@ -6,6 +6,13 @@ export interface ServiceFaq {
   a: string
 }
 
+export interface ServiceGalleryImage {
+  id: string
+  image_url: string
+  caption: string | null
+  order: number
+}
+
 export interface Service {
   id: string
   title: string
@@ -15,6 +22,7 @@ export interface Service {
   image: string
   features: string[]
   faqs?: ServiceFaq[]
+  gallery?: ServiceGalleryImage[]
   is_active: boolean
   order: number
 }

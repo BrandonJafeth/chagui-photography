@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Packages from "@/components/Packages.astro";
+import ServiceGalleryCarousel from "@/components/ServiceGalleryCarousel.astro";
 import { getServiceBySlug, getPackages, getServices } from '@/lib/db'
 import { cldOptimize } from '@/lib/cloudinary'
 
@@ -83,6 +84,30 @@ const paragraphs = (service.detailed_description ?? service.description)
     </div>
 
   </div>
+
+  {/* ── Galería ── */}
+  {service.gallery && service.gallery.length > 0 && (
+    <section class="py-16 md:py-20 bg-black border-t border-white/8">
+      <div class="max-w-6xl mx-auto px-6 md:px-4">
+
+        <div class="mb-10">
+          <div class="flex items-baseline gap-3">
+            <p class="text-[0.6rem] uppercase tracking-[0.35em] text-white/50">Galería</p>
+            <span class="font-mono text-[10px] text-white/30">{String(service.gallery.length).padStart(2, '0')} fotos</span>
+          </div>
+          <h2
+            class="text-2xl md:text-3xl text-white mt-3"
+            style="font-family: 'Playfair Display', Georgia, serif; font-style: italic;"
+          >
+            Trabajos de {service.title}
+          </h2>
+          <div class="w-12 h-px bg-white/40 mt-4"></div>
+        </div>
+
+        <ServiceGalleryCarousel images={service.gallery} />
+      </div>
+    </section>
+  )}
 
   {/* ── Content ── */}
   <section class="py-16 md:py-24 bg-black">
