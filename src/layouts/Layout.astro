@@ -10,12 +10,18 @@ interface Props {
   title: string;
   description?: string;
   image?: string;
+  preloadImage?: string;
+  preloadImageSrcset?: string;
+  preloadImageSizes?: string;
 }
 
 const {
   title,
   description = "Fotógrafo profesional en San José con cobertura en todo Costa Rica. Bodas, retratos, eventos, bautizos y sacramentos. Isaías Díaz — Photographic Chagui.",
   image = "https://res.cloudinary.com/daqragn9m/image/upload/w_1200,h_630,c_fill,g_face,q_auto/v1782781402/libreria-chagui-sobre-nosotros_euzjwr.jpg",
+  preloadImage,
+  preloadImageSrcset,
+  preloadImageSizes,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -71,6 +77,17 @@ const schemaLD = {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/jpeg" href="https://res.cloudinary.com/daqragn9m/image/upload/w_64,h_64,c_fill,g_face/v1782781402/libreria-chagui-sobre-nosotros_euzjwr.jpg" />
     <link rel="apple-touch-icon" href="https://res.cloudinary.com/daqragn9m/image/upload/w_180,h_180,c_fill,g_face/v1782781402/libreria-chagui-sobre-nosotros_euzjwr.jpg" />
+
+    {preloadImage && (
+      <link
+        rel="preload"
+        as="image"
+        href={preloadImage}
+        imagesrcset={preloadImageSrcset}
+        imagesizes={preloadImageSizes}
+        fetchpriority="high"
+      />
+    )}
 
     <!-- SEO -->
     <title>{title} | Photographic Chagui — San José, CR</title>

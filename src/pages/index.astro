@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Hero from "@/components/Hero.astro";
+import Hero, { HERO_IMAGES, srcSet } from "@/components/Hero.astro";
 import MarqueeStrip from "@/components/MarqueeStrip.astro";
 import About from "@/components/About.astro";
 import ServicesOverview from "@/components/ServicesOverview.astro";
@@ -13,6 +13,9 @@ import Contact from "@/components/Contact.astro";
 <Layout
   title="Fotografía Profesional en San José, Costa Rica"
   description="Photographic Chagui — fotografía profesional en San José, Costa Rica. Bodas, retratos, eventos, bautizos y sacramentos con mirada propia."
+  preloadImage={HERO_IMAGES[0].src}
+  preloadImageSrcset={srcSet(HERO_IMAGES[0].src)}
+  preloadImageSizes="100vw"
 >
   <Hero />
   <MarqueeStrip />

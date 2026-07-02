@@ -13,7 +13,7 @@
 // import foto1 from '@/assets/hero/foto-1.jpg'
 // import foto2 from '@/assets/hero/foto-2.jpg'
 // import foto3 from '@/assets/hero/foto-3.jpg'
-const HERO_IMAGES = [
+export const HERO_IMAGES = [
   {
     src: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=1920&q=65&auto=format&fit=crop',
     alt: 'Fotografía de bodas en San José, Costa Rica — Photographic Chagui',
@@ -28,9 +28,9 @@ const HERO_IMAGES = [
   },
 ]
 
-const HERO_WIDTHS = [640, 750, 1080, 1920]
+export const HERO_WIDTHS = [640, 750, 1080, 1920]
 
-function srcSet(src: string): string {
+export function srcSet(src: string): string {
   return HERO_WIDTHS.map((w) => `${src.replace(/([?&])w=\d+/, `$1w=${w}`)} ${w}w`).join(', ')
 }
 ---
