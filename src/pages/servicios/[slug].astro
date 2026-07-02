@@ -2,15 +2,8 @@
 import Layout from "../../layouts/Layout.astro";
 import Packages from "@/components/Packages.astro";
 import ServiceGalleryCarousel from "@/components/ServiceGalleryCarousel.astro";
-import { getServiceBySlug, getPackages, getServices } from '@/lib/db'
+import { getServiceBySlug, getPackages } from '@/lib/db'
 import { cldOptimize } from '@/lib/cloudinary'
-
-export const prerender = true
-
-export async function getStaticPaths() {
-  const services = await getServices()
-  return services.map((s) => ({ params: { slug: s.slug } }))
-}
 
 const { slug } = Astro.params
 const service = await getServiceBySlug(slug!)
