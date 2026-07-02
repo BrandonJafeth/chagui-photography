@@ -9,26 +9,29 @@ interface Props {
 const { images } = Astro.props
 const count = images.length
 // Con pocas imágenes, un grid de 4 columnas deja un hueco enorme —
-// se usa una grilla angosta y centrada en su lugar.
-const isCompact = count <= 2
+// se usan layouts dedicados para 1 y 2 fotos en vez de dejar columnas vacías.
+const layout = count === 1 ? 'single' : count === 2 ? 'pair' : 'mosaic'
+
+const containerClass = {
+  single: 'grid grid-cols-1 max-w-sm sm:max-w-md mx-auto',
+  pair: 'grid grid-cols-2 gap-3 md:gap-4 max-w-2xl mx-auto',
+  mosaic: 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 grid-flow-row-dense auto-rows-[9rem] sm:auto-rows-[11rem] lg:auto-rows-[13rem] gap-2.5 md:gap-3.5',
+}[layout]
 ---
 
 {count > 0 && (
   <div class="gallery-grid">
-    <div
-      class={
-        isCompact
-          ? 'grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 max-w-2xl mx-auto'
-          : 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 grid-flow-row-dense auto-rows-[9rem] sm:auto-rows-[11rem] lg:auto-rows-[13rem] gap-2.5 md:gap-3.5'
-      }
-    >
+    <div class={containerClass}>
       {images.map((imgData, index) => {
-        const isFeature = !isCompact && count > 4 && index % 5 === 2
-        const dims = isCompact ? [700, 700] : isFeature ? [1000, 1000] : [640, 480]
+        const isFeature = layout === 'mosaic' && count > 4 && index % 5 === 2
+        const dims =
+          layout === 'single' ? [1000, 1000] :
+          layout === 'pair' ? [700, 700] :
+          isFeature ? [1000, 1000] : [640, 480]
         return (
           <button
             type="button"
-            class={`gallery-item group relative overflow-hidden bg-white/5 ring-1 ring-inset ring-white/0 hover:ring-white/25 transition-shadow duration-300 focus-visible:outline-2 focus-visible:outline-white ${isCompact ? 'aspect-square' : `${isFeature ? 'lg:col-span-2 lg:row-span-2' : ''} aspect-square sm:aspect-auto`}`}
+            class={`gallery-item group relative overflow-hidden bg-white/5 ring-1 ring-inset ring-white/0 hover:ring-white/25 transition-shadow duration-300 focus-visible:outline-2 focus-visible:outline-white ${layout === 'mosaic' ? `${isFeature ? 'lg:col-span-2 lg:row-span-2' : ''} aspect-square sm:aspect-auto` : 'aspect-square'}`}
             data-index={index}
             data-full={cldOptimize(imgData.image_url, 1800, 1350)}
             data-caption={imgData.caption ?? ''}
