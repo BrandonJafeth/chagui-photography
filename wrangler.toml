@@ -1,6 +1,8 @@
 name = "chagui-photography"
+main = "./dist/server/entry.mjs"
 compatibility_date = "2025-01-01"
 compatibility_flags = ["nodejs_compat"]
 
 [assets]
-directory = "./dist"
+directory = "./dist/client"
+binding = "ASSETS"
