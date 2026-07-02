@@ -1,5 +1,6 @@
 ---
 import NavbarMobile from "@/components/react/NavbarMobile";
+import { cldOptimize } from "@/lib/cloudinary";
 
 const NAV_LINKS = [
   { href: "/servicios/", label: "Servicios" },
@@ -26,7 +27,11 @@ const currentPath = Astro.url.pathname;
         aria-label="Photographic Chagui — Inicio"
       >
         <img
-          src="https://res.cloudinary.com/daqragn9m/image/upload/v1782781402/libreria-chagui-sobre-nosotros_euzjwr.jpg"
+          src={cldOptimize(
+            "https://res.cloudinary.com/daqragn9m/image/upload/v1782781402/libreria-chagui-sobre-nosotros_euzjwr.jpg",
+            112,
+            112
+          )}
           alt="Photographic Chagui"
           class="h-14 w-14 rounded-full object-cover object-top border border-white/20 opacity-90 group-hover:opacity-100 transition-opacity duration-200"
           width="56"

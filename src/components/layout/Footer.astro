@@ -1,5 +1,6 @@
 ---
 import footerData from "@/data/footer.json";
+import { cldOptimize } from "@/lib/cloudinary";
 
 const { brand, services, infoLinks, contact, social, legal } = footerData;
 const currentYear = new Date().getFullYear();
@@ -182,7 +183,11 @@ const currentYear = new Date().getFullYear();
               Desarrollado por One Out
             </span>
             <img
-              src="https://res.cloudinary.com/dxrzwnjee/image/upload/v1771954550/0241f761-da98-4ff8-ab80-3faa665f3a00.png"
+              src={cldOptimize(
+                "https://res.cloudinary.com/dxrzwnjee/image/upload/v1771954550/0241f761-da98-4ff8-ab80-3faa665f3a00.png",
+                32,
+                32
+              )}
               alt="One Out Logo"
               class="w-4 h-4 rounded-full object-cover opacity-60 group-hover:opacity-100 transition-opacity"
               loading="lazy"
