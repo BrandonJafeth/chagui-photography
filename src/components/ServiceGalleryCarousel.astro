@@ -18,10 +18,14 @@ const containerClass = {
   mosaic: 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 grid-flow-row-dense auto-rows-[9rem] sm:auto-rows-[11rem] lg:auto-rows-[13rem] gap-2.5 md:gap-3.5',
 }[layout]
 
-// 12 es múltiplo de 2/3/4 — la última página cierra en fila completa sin
-// importar cuántas columnas tenga el grid en el breakpoint actual.
-const pageSize = 12
-const totalPages = Math.max(1, Math.ceil(count / pageSize))
+// Páginas balanceadas en vez de trozos fijos de 12: con trozos fijos, una
+// galería de 14 fotos deja una última página de solo 2 fotos sueltas en el
+// grid de 4 columnas — el mismo "hueco enorme" que el layout de single/pair
+// evita para conteos totales chicos. Repartir el resto entre todas las
+// páginas evita una cola casi vacía.
+const maxPageSize = 12
+const totalPages = Math.max(1, Math.ceil(count / maxPageSize))
+const pageSize = Math.ceil(count / totalPages)
 ---
 
 {count > 0 && (
