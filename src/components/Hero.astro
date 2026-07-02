@@ -27,6 +27,12 @@ const HERO_IMAGES = [
     alt: 'Fotografía de eventos en Costa Rica — Photographic Chagui',
   },
 ]
+
+const HERO_WIDTHS = [640, 750, 1080, 1920]
+
+function srcSet(src: string): string {
+  return HERO_WIDTHS.map((w) => `${src.replace(/([?&])w=\d+/, `$1w=${w}`)} ${w}w`).join(', ')
+}
 ---
 
 <section
@@ -43,6 +49,8 @@ const HERO_IMAGES = [
       >
         <img
           src={img.src}
+          srcset={srcSet(img.src)}
+          sizes="100vw"
           alt={img.alt}
           class="hero-img w-full h-full object-cover"
           loading={i === 0 ? 'eager' : 'lazy'}

@@ -89,11 +89,8 @@ const featuredTestimonial = testimonials[0]
       <p class="text-[0.6rem] uppercase tracking-[0.35em] text-white/50 mb-10">Mi historia</p>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
         <div class="space-y-5">
-          {paragraphs.slice(0, 2).map((p: string, i: number) => (
-            <p class:list={[
-              'leading-relaxed text-base md:text-lg',
-              i === 0 ? 'text-white/75' : 'text-white/50'
-            ]}>{p}</p>
+          {paragraphs.slice(1, 2).map((p: string) => (
+            <p class="leading-relaxed text-base md:text-lg text-white/75">{p}</p>
           ))}
         </div>
         <div class="space-y-5">
