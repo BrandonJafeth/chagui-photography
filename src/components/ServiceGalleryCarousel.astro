@@ -161,6 +161,7 @@ const pageSize = Math.ceil(count / totalPages)
 )}
 
 <script>
+  function initGallery() {
   document.querySelectorAll<HTMLElement>('.gallery-grid').forEach((root) => {
     const items = Array.from(root.querySelectorAll<HTMLButtonElement>('.gallery-item'))
 
@@ -293,4 +294,8 @@ const pageSize = Math.ceil(count / totalPages)
       show(currentIndex + (dx < 0 ? 1 : -1))
     }, { passive: true })
   })
+  }
+
+  initGallery()
+  document.addEventListener('astro:page-load', initGallery)
 </script>
