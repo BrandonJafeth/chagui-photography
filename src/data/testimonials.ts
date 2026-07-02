@@ -3,16 +3,6 @@ import type { Testimonial } from '@/types/index'
 
 export const testimonials: Testimonial[] = [
   {
-    id: '5',
-    client_name: 'Judith',
-    text: 'Nos encantó el servicio de fotografía para nuestra boda. El fotógrafo fue muy amable, paciente y súper comunicativo durante todo el día. Quedamos completamente satisfechos con el resultado. ¡Totalmente recomendados!',
-    rating: 5,
-    image: null,
-    position: 'Boda',
-    is_visible: true,
-    order: 1,
-  },
-  {
     id: '1',
     client_name: 'Andrea Mora',
     text: 'Isaías capturó nuestra boda exactamente como queríamos: sin poses forzadas, con mucha emoción. Las fotos superaron todo lo que esperábamos.',
@@ -20,7 +10,7 @@ export const testimonials: Testimonial[] = [
     image: null,
     position: 'Boda en San José',
     is_visible: true,
-    order: 2,
+    order: 5,
   },
   {
     id: '2',
@@ -30,7 +20,7 @@ export const testimonials: Testimonial[] = [
     image: null,
     position: 'Bautizo en San José',
     is_visible: true,
-    order: 3,
+    order: 4,
   },
   {
     id: '3',
@@ -40,7 +30,7 @@ export const testimonials: Testimonial[] = [
     image: null,
     position: 'Sesión familiar',
     is_visible: true,
-    order: 4,
+    order: 3,
   },
   {
     id: '4',
@@ -50,6 +40,16 @@ export const testimonials: Testimonial[] = [
     image: null,
     position: 'Quinceaños en San José',
     is_visible: true,
-    order: 5,
+    order: 2,
+  },
+  {
+    id: '5',
+    client_name: 'Judith',
+    text: 'Nos encantó el servicio de fotografía para nuestra boda. El fotógrafo fue muy amable, paciente y súper comunicativo durante todo el día. Quedamos completamente satisfechos con el resultado. ¡Totalmente recomendados!',
+    rating: 5,
+    image: null,
+    position: 'Boda',
+    is_visible: true,
+    order: 1,
   },
 ]
