@@ -57,7 +57,7 @@ for (let i = 0; i < pkgs.length; i += 3) rows.push(pkgs.slice(i, i + 3))
                     'relative flex flex-col px-6 py-8 md:px-8 md:py-10 overflow-hidden transition-all duration-500 group pkg-card',
                     'w-full md:basis-80 md:min-w-72',
                     isFullRow ? 'md:grow' : 'md:grow-0 md:shrink-0',
-                    isFeatured ? 'pkg-featured' : 'bg-[#070707] pkg-plain',
+                    isFeatured ? 'pkg-featured' : 'bg-[#0d0d0d] pkg-plain',
                   ]}
                   style={isFeatured
                     ? 'background: radial-gradient(ellipse 150% 55% at 50% -5%, rgba(255,255,255,0.07) 0%, transparent 65%), #0a0a0a;'
@@ -180,14 +180,20 @@ for (let i = 0; i < pkgs.length; i += 3) rows.push(pkgs.slice(i, i + 3))
     transition: background 0.5s ease;
   }
 
-  /* ── Non-featured hover ── */
+  /* ── Non-featured: always-on subtle presence (touch has no :hover) ── */
+  .pkg-plain {
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.09);
+  }
+  .pkg-plain .pkg-left-bar {
+    background: rgba(255, 255, 255, 0.14);
+  }
   .pkg-plain:hover {
     box-shadow:
-      0 0 0 1px rgba(255, 255, 255, 0.07),
+      0 0 0 1px rgba(255, 255, 255, 0.16),
       0 20px 60px rgba(0, 0, 0, 0.7);
   }
   .pkg-plain:hover .pkg-left-bar {
-    background: rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.3);
   }
   .pkg-plain:hover .pkg-accent-line {
     background: rgba(255, 255, 255, 0.4) !important;
