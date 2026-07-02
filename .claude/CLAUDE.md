@@ -2,7 +2,7 @@
 
 ## Qué es este proyecto
 
-Sitio web público estático de fotografía para **Isaías Díaz García**, fotógrafo en Hatillo, San José, Costa Rica. Contenido 100% hardcoded en `src/data/`. Sin admin, sin Supabase runtime, sin portafolio.
+Sitio web público estático de fotografía para **Isaías Díaz García**, fotógrafo en San José, Costa Rica. Contenido 100% hardcoded en `src/data/`. Sin admin, sin Supabase runtime, sin portafolio.
 
 ## Stack real
 
@@ -52,7 +52,7 @@ Imágenes en el array `HERO_IMAGES` al inicio de `src/components/Hero.astro`. Ca
 
 ## SEO target
 
-"fotógrafo Hatillo", "fotógrafo San José Costa Rica", "fotografía de bodas San José". Schema.org: `ProfessionalService` con dirección Hatillo.
+"fotógrafo San José", "fotógrafo San José Costa Rica", "fotografía de bodas San José". Schema.org: `ProfessionalService` con dirección San José.
 
 ## Lo que NO existe
 

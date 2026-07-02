@@ -2,7 +2,7 @@
 
 ## Proyecto
 
-Sitio web público de fotografía profesional para **Isaías Díaz García**, fotógrafo en Hatillo, San José, Costa Rica. Sitio estático, dark-first, contenido hardcoded. Sin admin todavía, sin Supabase en runtime, sin portafolio/galería.
+Sitio web público de fotografía profesional para **Isaías Díaz García**, fotógrafo en San José, Costa Rica. Sitio estático, dark-first, contenido hardcoded. Sin admin todavía, sin Supabase en runtime, sin portafolio/galería.
 
 ---
 
@@ -93,8 +93,8 @@ Slugs: `bodas`, `retratos`, `eventos`, `comercial`
 | Nombre | Isaías Díaz García |
 | WhatsApp | +506 8554-6933 |
 | Email | isaiasdg14@hotmail.com |
-| Ubicación | Hatillo, San José, Costa Rica |
-| SEO target | "fotógrafo Hatillo", "fotógrafo San José Costa Rica" |
+| Ubicación | San José, Costa Rica |
+| SEO target | "fotógrafo San José", "fotógrafo San José Costa Rica" |
 
 ---
 
