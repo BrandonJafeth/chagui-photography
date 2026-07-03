@@ -14,7 +14,7 @@ const items = [
   aria-hidden="true"
 >
   <div class="marquee-outer flex whitespace-nowrap">
-    {[0, 1].map(() => (
+    {[0, 1, 2, 3].map(() => (
       <div class="marquee-inner flex items-center gap-0 shrink-0">
         {items.map(item => (
           <span class="inline-flex items-center gap-8 text-white/50 text-[0.65rem] uppercase tracking-[0.35em] px-8">
@@ -34,7 +34,7 @@ const items = [
   }
   @keyframes marquee {
     from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
+    to   { transform: translateX(-25%); }
   }
   @media (prefers-reduced-motion: reduce) {
     .marquee-outer { animation: none; }
