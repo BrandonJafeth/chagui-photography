@@ -1,7 +1,7 @@
 ---
 import NavbarMobile from "@/components/react/NavbarMobile";
 import { cldOptimize } from "@/lib/cloudinary";
-import { services } from "@/data/services";
+import { getServices } from "@/lib/db";
 
 const NAV_LINKS = [
   { href: "/servicios/", label: "Servicios" },
@@ -10,9 +10,7 @@ const NAV_LINKS = [
   { href: "/#contacto",  label: "Contacto"  },
 ];
 
-const activeServices = services
-  .filter((s) => s.is_active)
-  .sort((a, b) => a.order - b.order);
+const activeServices = await getServices();
 
 const currentPath = Astro.url.pathname;
 ---
