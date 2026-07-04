@@ -91,7 +91,7 @@ const pageSize = Math.ceil(count / totalPages)
           Anterior
         </button>
 
-        <p class="font-mono text-[11px] tabular-nums tracking-[0.2em] text-white/35 select-none">
+        <p class="font-mono text-[11px] tabular-nums tracking-[0.2em] text-white/55 select-none">
           <span class="gallery-page-current text-white/80">01</span> — {String(totalPages).padStart(2, '0')}
         </p>
 
@@ -216,7 +216,7 @@ const pageSize = Math.ceil(count / totalPages)
     const nextBtn = lightbox.querySelector<HTMLButtonElement>('.lightbox-next')!
 
     let currentIndex = 0
-    let fadeTimeout: ReturnType<typeof window.setTimeout> | undefined
+    let fadeTimeout: ReturnType<typeof setTimeout> | undefined
     const preloaded = new Set<number>()
 
     function preload(i: number) {
@@ -240,8 +240,8 @@ const pageSize = Math.ceil(count / totalPages)
     function show(index: number) {
       currentIndex = (index + items.length) % items.length
       img.classList.add('opacity-0')
-      if (fadeTimeout) window.clearTimeout(fadeTimeout)
-      fadeTimeout = window.setTimeout(() => {
+      if (fadeTimeout) clearTimeout(fadeTimeout)
+      fadeTimeout = setTimeout(() => {
         render(currentIndex)
         img.classList.remove('opacity-0')
       }, 200)

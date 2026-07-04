@@ -160,6 +160,7 @@ export function srcSet(src: string): string {
     {
       HERO_IMAGES.map((_, i) => (
         <button
+          type="button"
           class:list={[
             'hero-dot w-6 h-[2px] transition-all duration-500 focus-visible:outline-2 focus-visible:outline-white',
             i === 0 ? 'bg-white' : 'bg-white/30',

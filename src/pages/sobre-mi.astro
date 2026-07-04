@@ -206,43 +206,45 @@ const featuredTestimonial = testimonials[0]
   </section>
 
   {/* ── Featured testimonial ── */}
-  <section class="py-20 md:py-28 bg-[#070707] border-t border-white/8">
-    <div class="max-w-4xl mx-auto px-4">
-      <p class="text-[0.6rem] uppercase tracking-[0.35em] text-white/50 mb-12 text-center">
-        Lo que dicen los clientes
-      </p>
-      <div class="relative">
-        <span
-          class="absolute -top-6 -left-2 select-none pointer-events-none"
-          style="font-size: 9rem; font-family: 'Playfair Display', serif; line-height: 1; color: rgba(255,255,255,0.05);"
-          aria-hidden="true"
-        >"</span>
-        <blockquote class="relative">
-          <p
-            class="text-2xl md:text-3xl text-white/80 leading-relaxed mb-8"
-            style="font-family: 'Playfair Display', Georgia, serif; font-style: italic;"
+  {featuredTestimonial && (
+    <section class="py-20 md:py-28 bg-[#070707] border-t border-white/8">
+      <div class="max-w-4xl mx-auto px-4">
+        <p class="text-[0.6rem] uppercase tracking-[0.35em] text-white/50 mb-12 text-center">
+          Lo que dicen los clientes
+        </p>
+        <div class="relative">
+          <span
+            class="absolute -top-6 -left-2 select-none pointer-events-none"
+            style="font-size: 9rem; font-family: 'Playfair Display', serif; line-height: 1; color: rgba(255,255,255,0.05);"
+            aria-hidden="true"
+          >"</span>
+          <blockquote class="relative">
+            <p
+              class="text-2xl md:text-3xl text-white/80 leading-relaxed mb-8"
+              style="font-family: 'Playfair Display', Georgia, serif; font-style: italic;"
+            >
+              {featuredTestimonial.text}
+            </p>
+            <footer class="flex items-center gap-4">
+              <div class="w-8 h-px bg-white/25"></div>
+              <div>
+                <p class="text-white text-sm font-medium">{featuredTestimonial.client_name}</p>
+                <p class="text-white/55 text-xs mt-0.5">{featuredTestimonial.position}</p>
+              </div>
+            </footer>
+          </blockquote>
+        </div>
+        <div class="mt-12 text-center">
+          <a
+            href="/#testimonios"
+            class="text-xs text-white/55 hover:text-white uppercase tracking-widest transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-white"
           >
-            {featuredTestimonial.text}
-          </p>
-          <footer class="flex items-center gap-4">
-            <div class="w-8 h-px bg-white/25"></div>
-            <div>
-              <p class="text-white text-sm font-medium">{featuredTestimonial.client_name}</p>
-              <p class="text-white/55 text-xs mt-0.5">{featuredTestimonial.position}</p>
-            </div>
-          </footer>
-        </blockquote>
+            Ver más testimonios →
+          </a>
+        </div>
       </div>
-      <div class="mt-12 text-center">
-        <a
-          href="/#testimonios"
-          class="text-xs text-white/55 hover:text-white uppercase tracking-widest transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-white"
-        >
-          Ver más testimonios →
-        </a>
-      </div>
-    </div>
-  </section>
+    </section>
+  )}
 
   {/* ── CTA final ── */}
   <section class="py-20 bg-black border-t border-white/8">
