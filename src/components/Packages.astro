@@ -45,8 +45,8 @@ for (let i = 0; i < pkgs.length; i += 3) rows.push(pkgs.slice(i, i + 3))
         return (
           <div
             class:list={[
-              'flex flex-col md:flex-row gap-px',
-              isFullRow ? 'bg-white/8' : 'bg-[#070707] md:justify-center md:gap-4',
+              'flex flex-col lg:flex-row gap-px',
+              isFullRow ? 'bg-white/8' : 'bg-[#070707] lg:justify-center lg:gap-4',
             ]}
           >
             {row.map((pkg) => {
@@ -55,8 +55,8 @@ for (let i = 0; i < pkgs.length; i += 3) rows.push(pkgs.slice(i, i + 3))
                 <div
                   class:list={[
                     'relative flex flex-col px-6 py-8 md:px-8 md:py-10 overflow-hidden transition-all duration-500 group pkg-card',
-                    'w-full md:basis-80 md:min-w-72',
-                    isFullRow ? 'md:grow' : 'md:grow-0 md:shrink-0',
+                    'w-full lg:basis-80 lg:min-w-72',
+                    isFullRow ? 'lg:grow' : 'lg:grow-0 lg:shrink-0',
                     isFeatured ? 'pkg-featured' : 'bg-[#0d0d0d] pkg-plain',
                   ]}
                   style={isFeatured

@@ -21,6 +21,12 @@ export default function NavbarMobile({ navLinks, currentPath }: NavbarMobileProp
     document.body.style.overflow = isOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [isOpen]);
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 768px)');
+    const closeIfDesktop = (e: MediaQueryListEvent) => { if (e.matches) setIsOpen(false); };
+    mq.addEventListener('change', closeIfDesktop);
+    return () => mq.removeEventListener('change', closeIfDesktop);
+  }, []);
 
   const closeMenu = () => setIsOpen(false);
 
