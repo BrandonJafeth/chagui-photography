@@ -23,15 +23,15 @@ const visible = await getTestimonials()
       Deslizá para ver más
     </p>
 
-    {/* Drag-scroll horizontal */}
+    {/* Drag-scroll horizontal — mobile only. Static grid from sm up. */}
     <div
       id="testimonials-scroll"
-      class="overflow-x-auto pb-4 cursor-grab active:cursor-grabbing select-none"
+      class="overflow-x-auto pb-4 cursor-grab active:cursor-grabbing select-none snap-x snap-mandatory sm:overflow-visible sm:pb-0 sm:cursor-default sm:snap-none"
       style="-ms-overflow-style:none; scrollbar-width:none;"
     >
-      <div class="flex gap-5 pl-4 pr-8 sm:px-1 min-w-max">
+      <div class="flex gap-5 pl-4 pr-8 min-w-max sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-6 sm:px-0 sm:pl-0 sm:pr-0 sm:min-w-0">
         {visible.map((t, idx) => (
-          <article data-index={idx} class="w-[min(calc(100vw-5rem),380px)] sm:w-95 shrink-0 bg-white/2.5 p-8 relative overflow-hidden transition-all duration-300 hover:bg-white/5 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/60 flex flex-col">
+          <article data-index={idx} class="w-[min(calc(100vw-5rem),380px)] shrink-0 snap-center sm:w-full sm:snap-align-none bg-white/2.5 p-8 relative overflow-hidden transition-all duration-300 hover:bg-white/5 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/60 flex flex-col">
 
             {/* Decorative quote */}
             <span
