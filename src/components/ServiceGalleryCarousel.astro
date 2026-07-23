@@ -78,30 +78,30 @@ const pageSize = Math.ceil(count / totalPages)
     </div>
 
     {totalPages > 1 && (
-      <div class="gallery-pagination flex items-center justify-between gap-6 border-t border-white/8 pt-6 mt-8 md:mt-10">
+      <div class="gallery-pagination flex items-center justify-between gap-3 sm:gap-6 border-t border-white/8 pt-6 mt-8 md:mt-10">
         <button
           type="button"
-          class="gallery-prev group flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.15em] text-white/50 transition-colors duration-200 hover:text-white disabled:pointer-events-none disabled:opacity-30"
+          class="gallery-prev group flex items-center gap-1.5 sm:gap-2 shrink-0 text-[11px] font-medium uppercase tracking-[0.15em] text-white/50 transition-colors duration-200 hover:text-white disabled:pointer-events-none disabled:opacity-30"
           disabled
           aria-label="Página anterior"
         >
-          <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <svg class="w-3.5 h-3.5 shrink-0 transition-transform duration-200 group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
           </svg>
-          Anterior
+          <span class="hidden sm:inline">Anterior</span>
         </button>
 
-        <p class="font-mono text-[11px] tabular-nums tracking-[0.2em] text-white/55 select-none">
+        <p class="font-mono text-[11px] tabular-nums tracking-[0.2em] text-white/55 select-none shrink-0 whitespace-nowrap">
           <span class="gallery-page-current text-white/80">01</span> — {String(totalPages).padStart(2, '0')}
         </p>
 
         <button
           type="button"
-          class="gallery-next group flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.15em] text-white/50 transition-colors duration-200 hover:text-white disabled:pointer-events-none disabled:opacity-30"
+          class="gallery-next group flex items-center gap-1.5 sm:gap-2 shrink-0 text-[11px] font-medium uppercase tracking-[0.15em] text-white/50 transition-colors duration-200 hover:text-white disabled:pointer-events-none disabled:opacity-30"
           aria-label="Página siguiente"
         >
-          Siguiente
-          <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <span class="hidden sm:inline">Siguiente</span>
+          <svg class="w-3.5 h-3.5 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
         </button>
@@ -131,10 +131,10 @@ const pageSize = Math.ceil(count / totalPages)
 
       <button
         type="button"
-        class="lightbox-prev absolute left-2 md:left-6 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-11 h-11 md:w-12 md:h-12 border border-white/30 bg-black/70 backdrop-blur-sm text-white/80 hover:text-white hover:border-white transition-all duration-300 focus-visible:outline-2 focus-visible:outline-white"
+        class="lightbox-prev absolute left-2 md:left-6 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-8 h-8 md:w-11 md:h-11 border border-white/25 bg-black/60 backdrop-blur-sm text-white/80 hover:text-white hover:border-white transition-all duration-300 focus-visible:outline-2 focus-visible:outline-white"
         aria-label="Imagen anterior"
       >
-        <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <svg class="w-3.5 h-3.5 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
         </svg>
       </button>
@@ -149,10 +149,10 @@ const pageSize = Math.ceil(count / totalPages)
 
       <button
         type="button"
-        class="lightbox-next absolute right-2 md:right-6 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-11 h-11 md:w-12 md:h-12 border border-white/30 bg-black/70 backdrop-blur-sm text-white/80 hover:text-white hover:border-white transition-all duration-300 focus-visible:outline-2 focus-visible:outline-white"
+        class="lightbox-next absolute right-2 md:right-6 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-8 h-8 md:w-11 md:h-11 border border-white/25 bg-black/60 backdrop-blur-sm text-white/80 hover:text-white hover:border-white transition-all duration-300 focus-visible:outline-2 focus-visible:outline-white"
         aria-label="Siguiente imagen"
       >
-        <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <svg class="w-3.5 h-3.5 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" />
         </svg>
       </button>
@@ -216,7 +216,6 @@ const pageSize = Math.ceil(count / totalPages)
     const nextBtn = lightbox.querySelector<HTMLButtonElement>('.lightbox-next')!
 
     let currentIndex = 0
-    let fadeTimeout: ReturnType<typeof setTimeout> | undefined
     const preloaded = new Set<number>()
 
     function preload(i: number) {
@@ -239,12 +238,13 @@ const pageSize = Math.ceil(count / totalPages)
 
     function show(index: number) {
       currentIndex = (index + items.length) % items.length
+      // rAF en vez de setTimeout fijo: cada tap se resuelve solo, sin timer
+      // compartido que reiniciar — así paginar rápido no deja la imagen "pegada".
       img.classList.add('opacity-0')
-      if (fadeTimeout) clearTimeout(fadeTimeout)
-      fadeTimeout = setTimeout(() => {
+      requestAnimationFrame(() => {
         render(currentIndex)
-        img.classList.remove('opacity-0')
-      }, 200)
+        requestAnimationFrame(() => img.classList.remove('opacity-0'))
+      })
     }
 
     function open(index: number) {
