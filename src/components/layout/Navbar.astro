@@ -1,6 +1,5 @@
 ---
 import NavbarMobile from "@/components/react/NavbarMobile";
-import { cldOptimize } from "@/lib/cloudinary";
 import { getServices } from "@/lib/db";
 
 const NAV_LINKS = [
@@ -29,16 +28,15 @@ const currentPath = Astro.url.pathname;
         class="group focus-visible:outline-2 focus-visible:outline-white"
         aria-label="Photographic Chagui — Inicio"
       >
+        <!-- Logo 3:2 con fondo negro puro: recorte ajustado al contenido + mix-blend-lighten
+             para que el negro se funda con el navbar translúcido -->
         <img
-          src={cldOptimize(
-            "https://res.cloudinary.com/daqragn9m/image/upload/v1782781402/libreria-chagui-sobre-nosotros_euzjwr.jpg",
-            112,
-            112
-          )}
-          alt="Photographic Chagui"
-          class="h-14 w-14 rounded-full object-cover object-top border border-white/20 opacity-90 group-hover:opacity-100 transition-opacity duration-200"
-          width="56"
-          height="56"
+          src="https://res.cloudinary.com/daqragn9m/image/upload/c_crop,w_1400,h_930,x_68,y_10/w_216,h_144,c_fit,q_auto,f_auto/v1791905784/logo-chaagui_hsgeqp.jpg"
+          alt="Photographic Chagui — Fotografía profesional"
+          class="h-18 w-auto mix-blend-lighten opacity-90 group-hover:opacity-100 transition-opacity duration-200"
+          width="108"
+          height="72"
+          fetchpriority="high"
         />
       </a>
 
