@@ -28,14 +28,13 @@ const currentPath = Astro.url.pathname;
         class="group focus-visible:outline-2 focus-visible:outline-white"
         aria-label="Photographic Chagui — Inicio"
       >
-        <!-- Logo 3:2 con fondo negro puro: recorte ajustado al contenido + mix-blend-lighten
-             para que el negro se funda con el navbar translúcido -->
+        <!-- Logo con fondo transparente (public/logo-chagui.webp, 304×216) -->
         <img
-          src="https://res.cloudinary.com/daqragn9m/image/upload/c_crop,w_1400,h_930,x_68,y_10/w_216,h_144,c_fit,q_auto,f_auto/v1791905784/logo-chaagui_hsgeqp.jpg"
+          src="/logo-chagui.webp"
           alt="Photographic Chagui — Fotografía profesional"
-          class="h-18 w-auto mix-blend-lighten opacity-90 group-hover:opacity-100 transition-opacity duration-200"
-          width="108"
-          height="72"
+          class="h-14 md:h-18 w-auto opacity-90 group-hover:opacity-100 transition-opacity duration-200"
+          width="304"
+          height="216"
           fetchpriority="high"
         />
       </a>
