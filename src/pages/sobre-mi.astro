@@ -1,9 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { getContent, getServices, getTestimonials } from "@/lib/db";
+import { cldOptimize } from "@/lib/cloudinary";
 
 const aboutText      = await getContent('about_text')
-const imageUrl        = await getContent('about_image_url')
+const imageUrl        = cldOptimize(await getContent('about_page_image_url'), 800, 1000)
 const paragraphs     = aboutText.split('\n\n').filter(Boolean)
 const activeServices = await getServices()
 const testimonials    = await getTestimonials()

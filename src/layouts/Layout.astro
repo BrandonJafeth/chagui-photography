@@ -32,7 +32,7 @@ const schemaLD = {
   "@type": ["ProfessionalService", "LocalBusiness"],
   "name": "Photographic Chagui",
   "description": "Fotografía profesional de bodas, retratos, eventos, bautizos y sacramentos en Costa Rica.",
-  "url": canonicalURL.href,
+  "url": new URL("/", Astro.site).href,
   "telephone": "+50685546933",
   "email": "isaiasdg14@hotmail.com",
   "priceRange": "$$",
@@ -76,7 +76,8 @@ const schemaLD = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="https://res.cloudinary.com/daqragn9m/image/upload/c_crop,w_420,h_420,x_560,y_40/w_64,h_64,f_png/v1791905784/logo-chaagui_hsgeqp.jpg" />
+    <!-- Google exige un favicon cuadrado de tamaño múltiplo de 48px -->
+    <link rel="icon" type="image/png" sizes="96x96" href="https://res.cloudinary.com/daqragn9m/image/upload/c_crop,w_420,h_420,x_560,y_40/w_96,h_96,f_png/v1791905784/logo-chaagui_hsgeqp.jpg" />
     <link rel="apple-touch-icon" href="https://res.cloudinary.com/daqragn9m/image/upload/c_crop,w_900,h_705,x_318,y_0/c_pad,w_180,h_180,b_black,f_png/v1791905784/logo-chaagui_hsgeqp.jpg" />
 
     {preloadImage && (
