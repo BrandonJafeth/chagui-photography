@@ -19,9 +19,16 @@ export const siteContent: SiteContent[] = [
   {
     id: '6',
     key: 'about_image_url',
-    value: 'https://res.cloudinary.com/daqragn9m/image/upload/v1782781402/libreria-chagui-sobre-nosotros_euzjwr.jpg',
+    value: 'https://res.cloudinary.com/dkwvaxxdw/image/upload/v1791910276/IMG-20261013-WA0031_u6z1ua.jpg',
     type: 'image',
-    metadata: { alt: 'Isaías Díaz García, fotógrafo profesional en San José San José' },
+    metadata: { alt: 'Isaías Díaz García, fotógrafo profesional en San José, Costa Rica' },
+  },
+  {
+    id: '10',
+    key: 'about_page_image_url',
+    value: 'https://res.cloudinary.com/dkwvaxxdw/image/upload/v1791910276/IMG-20261013-WA0029_mzn3fu.jpg',
+    type: 'image',
+    metadata: { alt: 'Isaías Díaz García, fotógrafo profesional en San José, Costa Rica' },
   },
   { id: '7', key: 'contact_email',  value: 'isaiasdg14@hotmail.com',   type: 'text', metadata: null },
   { id: '8', key: 'contact_phone',  value: '+506 8554-6933',           type: 'text', metadata: null },
